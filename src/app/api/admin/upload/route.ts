@@ -2,8 +2,8 @@ import { NextRequest, NextResponse } from "next/server";
 import { put } from "@vercel/blob";
 import { getAdminSession } from "@/lib/auth";
 
-const ALLOWED_TYPES = ["image/jpeg", "image/png", "image/webp", "image/gif"];
-const MAX_SIZE = 10 * 1024 * 1024; // 10 MB
+const ALLOWED_TYPES = ["image/jpeg", "image/png", "image/webp"];
+const MAX_SIZE = 15 * 1024 * 1024; // 15 MB
 
 const ALLOWED_FOLDERS = ["slider", "promotions", "products", "blog", "videos", "misc"];
 
@@ -35,7 +35,7 @@ export async function POST(request: NextRequest) {
 
   if (file.size > MAX_SIZE) {
     return NextResponse.json(
-      { error: "El archivo es demasiado grande. Máximo 10 MB." },
+      { error: "El archivo es demasiado grande. Máximo 15 MB." },
       { status: 400 }
     );
   }
@@ -46,9 +46,12 @@ export async function POST(request: NextRequest) {
     .replace(/[^a-z0-9]/gi, "-")
     .toLowerCase()
     .slice(0, 40);
-  const filename = `${folder}/${Date.now()}-${Math.random().toString(36).slice(2, 8)}-${safeName}.${ext}`;
+  const pathname = `${folder}/${safeName}.${ext}`;
 
-  const blob = await put(filename, file, { access: "public" });
+  const blob = await put(pathname, file, {
+    access: "public",
+    addRandomSuffix: true,
+  });
 
-  return NextResponse.json({ url: blob.url });
+  return NextResponse.json({ url: blob.url, pathname: blob.pathname });
 }
