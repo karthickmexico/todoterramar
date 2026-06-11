@@ -123,17 +123,17 @@ export default async function HomePage({
       {/* 1. Hero banner carousel */}
       <HeroSection locale={locale} sliderImages={sliderImages} />
 
-      {/* 2. Product categories grid */}
-      <CategoriesSection locale={locale} dbCategories={dbCategories} />
-
-      {/* 3. About Terramar — Sobre Terramar / La marca de belleza que te empodera */}
-      <AboutSection locale={locale} />
-
-      {/* 4. How to affiliate — Cómo afiliarse / Únete al equipo */}
+      {/* 2. How to affiliate — Cómo afiliarse / Únete al equipo */}
       <AffiliateSection locale={locale} />
 
-      {/* 5. Monthly promotions */}
+      {/* 3. Monthly promotions */}
       <PromotionsPreview promotions={promotions} locale={locale} />
+
+      {/* 4. Product categories grid */}
+      <CategoriesSection locale={locale} dbCategories={dbCategories} />
+
+      {/* 5. About Terramar — Sobre Terramar / La marca de belleza que te empodera */}
+      <AboutSection locale={locale} />
 
       {/* 6. Featured products */}
       <ProductsPreview products={products} locale={locale} />
