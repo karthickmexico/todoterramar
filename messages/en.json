@@ -1,0 +1,385 @@
+{
+  "common": {
+    "siteTitle": "TodoTerramer",
+    "tagline": "Your business opportunity with Terramar",
+    "loading": "Loading...",
+    "error": "An error occurred",
+    "success": "Success!",
+    "save": "Save",
+    "cancel": "Cancel",
+    "delete": "Delete",
+    "edit": "Edit",
+    "add": "Add",
+    "search": "Search",
+    "filter": "Filter",
+    "export": "Export",
+    "back": "Back",
+    "next": "Next",
+    "submit": "Submit",
+    "close": "Close",
+    "view": "View",
+    "more": "View more",
+    "less": "View less",
+    "all": "All",
+    "yes": "Yes",
+    "no": "No",
+    "required": "Required",
+    "optional": "Optional",
+    "new": "New",
+    "featured": "Featured",
+    "active": "Active",
+    "inactive": "Inactive",
+    "published": "Published",
+    "draft": "Draft",
+    "actions": "Actions",
+    "status": "Status",
+    "date": "Date",
+    "name": "Name",
+    "email": "Email",
+    "phone": "Phone",
+    "message": "Message",
+    "description": "Description",
+    "category": "Category",
+    "price": "Price",
+    "image": "Image",
+    "language": "Language",
+    "spanish": "Español",
+    "english": "English",
+    "noResults": "No results found",
+    "disclaimer": "This website is operated by an independent Terramar distributor and does not represent the official Terramar corporation."
+  },
+  "nav": {
+    "home": "Home",
+    "about": "About Terramar",
+    "joinTeam": "Join the Team",
+    "benefits": "Benefits",
+    "promotions": "Promotions",
+    "videos": "Videos",
+    "products": "Products",
+    "contact": "Contact",
+    "blog": "Blog",
+    "register": "Register",
+    "admin": "Admin",
+    "menu": "Menu"
+  },
+  "hero": {
+    "badge": "Independent Terramar Distributor",
+    "title": "Transform your life with",
+    "titleHighlight": "Terramar México",
+    "subtitle": "Join our team of successful distributors or discover the best beauty and wellness products. Your business opportunity awaits!",
+    "ctaJoin": "I want to join",
+    "ctaBuy": "I want to buy products",
+    "ctaWhatsApp": "Send WhatsApp",
+    "stats": {
+      "years": "Years of experience",
+      "products": "Products available",
+      "distributors": "Active distributors",
+      "satisfaction": "Satisfaction guaranteed"
+    }
+  },
+  "benefits": {
+    "title": "Why choose Terramar?",
+    "subtitle": "Discover the unique benefits of joining the Terramar family",
+    "items": {
+      "income": {
+        "title": "Additional income",
+        "description": "Generate earnings from home with flexible hours and no income limit"
+      },
+      "products": {
+        "title": "Quality products",
+        "description": "Sell and use the best beauty, health, and wellness products on the market"
+      },
+      "training": {
+        "title": "Continuous training",
+        "description": "Access training videos, manuals, and full team support"
+      },
+      "discounts": {
+        "title": "Exclusive discounts",
+        "description": "As a distributor, get special discounts on all Terramar products"
+      },
+      "community": {
+        "title": "Support community",
+        "description": "Be part of a community of successful women who support each other"
+      },
+      "schedule": {
+        "title": "Flexible schedule",
+        "description": "Work from wherever you want and at the hours that suit you best"
+      }
+    }
+  },
+  "promotions": {
+    "title": "Monthly Promotions",
+    "subtitle": "Don't miss our current special offers",
+    "noPromotions": "No active promotions at this time",
+    "download": "Download PDF",
+    "inquire": "Ask on WhatsApp",
+    "expires": "Valid until:",
+    "expired": "Expired",
+    "viewAll": "View all promotions"
+  },
+  "videos": {
+    "title": "Training Videos",
+    "subtitle": "Learn everything about the products and how to grow your business",
+    "featured": "Featured Video",
+    "noVideos": "No videos available",
+    "viewAll": "View all videos",
+    "watch": "Watch video"
+  },
+  "products": {
+    "title": "Product Catalog",
+    "subtitle": "Discover our complete Terramar product line",
+    "noProducts": "No products available",
+    "viewAll": "View full catalog",
+    "inquire": "I want this product",
+    "inStock": "In stock",
+    "outOfStock": "Out of stock",
+    "comingSoon": "Coming soon",
+    "searchPlaceholder": "Search products...",
+    "allCategories": "All categories",
+    "priceOptional": "Price on request",
+    "featured": "Featured product"
+  },
+  "testimonials": {
+    "title": "What our distributors say",
+    "subtitle": "Real success stories from women who transformed their lives with Terramar"
+  },
+  "faq": {
+    "title": "Frequently Asked Questions",
+    "subtitle": "We answer your most common questions about Terramar",
+    "items": {
+      "what": {
+        "q": "What is Terramar?",
+        "a": "Terramar is a leading Mexican company in direct sales of beauty, health and wellness products. With decades of experience in the Mexican market, Terramar has helped thousands of women build their own business."
+      },
+      "howJoin": {
+        "q": "How do I join Terramar?",
+        "a": "The process is very simple: register your interest on this site, we contact you, explain the whole process and help you start your Terramar business."
+      },
+      "investment": {
+        "q": "How much do I need to invest to start?",
+        "a": "The initial investment is minimal. During our affiliation process we will explain all the details and options available to get started."
+      },
+      "earnings": {
+        "q": "How much can I earn with Terramar?",
+        "a": "Earnings are unlimited and depend on your dedication and sales. Many distributors generate significant extra income working from home."
+      },
+      "independent": {
+        "q": "Is this the official Terramar website?",
+        "a": "No, this site is operated by an independent Terramar distributor. For official information, visit the official Terramar México corporate website."
+      }
+    }
+  },
+  "contact": {
+    "title": "Contact Us",
+    "subtitle": "We're here to help. Write to us and we'll respond shortly.",
+    "form": {
+      "title": "Send us a message",
+      "success": "Message sent! We'll contact you soon.",
+      "error": "Error sending. Please try again."
+    },
+    "whatsapp": "Write on WhatsApp",
+    "hours": "Business hours",
+    "hoursValue": "Monday to Friday 9:00 - 18:00",
+    "location": "Mexico City and metropolitan area"
+  },
+  "register": {
+    "title": "Register Now",
+    "subtitle": "Complete the form and we will contact you to explain all the details",
+    "form": {
+      "fullName": "Full name",
+      "fullNamePlaceholder": "Your name and last name",
+      "phone": "Phone / WhatsApp",
+      "phonePlaceholder": "10 digits",
+      "email": "Email address",
+      "emailPlaceholder": "you@email.com",
+      "city": "City",
+      "cityPlaceholder": "Your city",
+      "state": "State",
+      "statePlaceholder": "Select your state",
+      "interest": "I'm interested in...",
+      "interestJoin": "Joining the team as a distributor",
+      "interestBuy": "Buying products",
+      "interestBoth": "Both options",
+      "source": "How did you find us?",
+      "sourceGoogle": "Google",
+      "sourceFacebook": "Facebook",
+      "sourceInstagram": "Instagram",
+      "sourceWhatsApp": "WhatsApp",
+      "sourceReferral": "Recommendation",
+      "sourceOther": "Other",
+      "message": "Additional message (optional)",
+      "messagePlaceholder": "Tell us more about yourself or your questions...",
+      "consent": "I accept the privacy policy and the processing of my personal data",
+      "promos": "I want to receive information about promotions and news",
+      "submit": "Send request",
+      "success": "Thank you for registering! We will contact you very soon.",
+      "error": "There was an error. Please try again.",
+      "successTitle": "Registration successful!",
+      "successMessage": "We have received your request. One of our advisors will contact you within the next 24 hours."
+    },
+    "validation": {
+      "fullNameRequired": "Name is required",
+      "fullNameMin": "Name must be at least 2 characters",
+      "phoneRequired": "Phone is required",
+      "phoneInvalid": "Enter a valid phone number (10 digits)",
+      "emailInvalid": "Enter a valid email address",
+      "interestRequired": "Select at least one type of interest",
+      "sourceRequired": "Tell us how you found us",
+      "consentRequired": "You must accept the privacy policy to continue"
+    }
+  },
+  "about": {
+    "title": "About Terramar",
+    "subtitle": "Get to know the company and team behind TodoTerramer",
+    "whatIs": {
+      "title": "What is Terramar?",
+      "content": "Terramar is a leading Mexican company in direct sales of beauty, health and wellness products. With decades of experience in the Mexican market, Terramar has helped thousands of women build their own business and improve their quality of life."
+    },
+    "whyJoin": {
+      "title": "Why join Terramar?",
+      "content": "Joining Terramar means having access to a complete catalog of high-quality products, receiving continuous training, having the support of an experienced network of distributors, and having the flexibility to work on your own terms."
+    },
+    "whyBuy": {
+      "title": "Why buy Terramar products?",
+      "content": "Terramar products are recognized for their quality, effectiveness, and competitive price. Each product goes through rigorous quality controls to guarantee the best results."
+    },
+    "disclaimer": {
+      "title": "Important Notice",
+      "content": "TodoTerramer is a website operated by an independent Terramar distributor. This site is not officially affiliated with or representing Terramar México corporate. All information presented here reflects the personal experience of the distributor."
+    }
+  },
+  "join": {
+    "title": "Join My Team",
+    "subtitle": "Start your Terramar business today",
+    "howItWorks": {
+      "title": "How does the process work?",
+      "step1": {
+        "title": "1. Register",
+        "description": "Complete the registration form with your contact details"
+      },
+      "step2": {
+        "title": "2. We contact you",
+        "description": "One of our advisors will get in touch with you"
+      },
+      "step3": {
+        "title": "3. You affiliate",
+        "description": "With our full support you complete the affiliation process with Terramar"
+      },
+      "step4": {
+        "title": "4. Start selling!",
+        "description": "Start generating income with your own Terramar business"
+      }
+    }
+  },
+  "footer": {
+    "tagline": "Your trusted independent distributor",
+    "quickLinks": "Quick links",
+    "contact": "Contact",
+    "followUs": "Follow us",
+    "disclaimer": "Independent site. Not the official Terramar México website.",
+    "privacy": "Privacy Policy",
+    "terms": "Terms & Conditions",
+    "rights": "All rights reserved"
+  },
+  "admin": {
+    "title": "Admin Panel",
+    "dashboard": "Dashboard",
+    "leads": "Leads",
+    "promotions": "Promotions",
+    "videos": "Videos",
+    "products": "Products",
+    "blog": "Blog",
+    "settings": "Settings",
+    "chat": "Chat / Inquiries",
+    "logout": "Log out",
+    "login": {
+      "title": "Admin Access",
+      "subtitle": "Enter your credentials to access the panel",
+      "email": "Email address",
+      "password": "Password",
+      "submit": "Sign in",
+      "error": "Invalid credentials"
+    },
+    "stats": {
+      "totalLeads": "Total Leads",
+      "newLeads": "New Leads",
+      "contacted": "Contacted",
+      "affiliated": "Affiliated",
+      "buyers": "Buyers",
+      "notInterested": "Not Interested",
+      "thisMonth": "This month",
+      "activePromos": "Active promotions",
+      "publishedVideos": "Published videos"
+    },
+    "leadStatus": {
+      "NEW": "New",
+      "CONTACTED": "Contacted",
+      "FOLLOW_UP": "Follow-up",
+      "AFFILIATED": "Affiliated",
+      "BUYER": "Buyer",
+      "NOT_INTERESTED": "Not interested"
+    },
+    "interest": {
+      "JOIN_TEAM": "Join team",
+      "BUY_PRODUCTS": "Buy products",
+      "BOTH": "Both"
+    },
+    "source": {
+      "GOOGLE": "Google",
+      "FACEBOOK": "Facebook",
+      "INSTAGRAM": "Instagram",
+      "WHATSAPP": "WhatsApp",
+      "REFERRAL": "Referral",
+      "OTHER": "Other"
+    }
+  },
+  "chat": {
+    "title": "Can we help you?",
+    "subtitle": "Write to us and we'll respond quickly",
+    "namePlaceholder": "Your name",
+    "phonePlaceholder": "Your WhatsApp",
+    "messagePlaceholder": "How can we help you?",
+    "send": "Send message",
+    "whatsapp": "Chat on WhatsApp",
+    "success": "Message received! We'll contact you soon.",
+    "or": "or",
+    "open": "Chat",
+    "minimize": "Minimize"
+  },
+  "cookies": {
+    "message": "We use cookies to improve your experience on our website.",
+    "accept": "Accept",
+    "decline": "Decline",
+    "learnMore": "Learn more"
+  },
+  "seo": {
+    "home": {
+      "title": "TodoTerramer - Terramar México Distributor | Join and Buy Products",
+      "description": "Join the Terramar México team as an independent distributor or buy high-quality beauty and wellness products. Discover promotions, catalog and more."
+    },
+    "about": {
+      "title": "About Terramar México | TodoTerramer",
+      "description": "Learn everything about Terramar, Mexico's leading company in direct sales of beauty and wellness products. Independent distributor."
+    },
+    "join": {
+      "title": "Join the Terramar Team | Affiliate and Earn Money from Home",
+      "description": "Join Terramar México and start your own direct sales business. Flexible schedule, training included, no income limit."
+    },
+    "products": {
+      "title": "Terramar México Product Catalog | TodoTerramer",
+      "description": "Explore the complete Terramar México product catalog. Beauty, health and wellness with the best quality."
+    },
+    "promotions": {
+      "title": "Terramar Monthly Promotions | TodoTerramer",
+      "description": "Check the current Terramar México promotions and special offers. Download the promotions catalog."
+    },
+    "contact": {
+      "title": "Contact | TodoTerramer Terramar Distributor",
+      "description": "Contact us for more information on how to join Terramar or buy products. We respond on WhatsApp."
+    },
+    "register": {
+      "title": "Register | Join the Terramar México Team",
+      "description": "Register your interest in Terramar México. Join the team or buy products. Easy and fast affiliation."
+    }
+  }
+}

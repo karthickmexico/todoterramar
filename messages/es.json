@@ -1,0 +1,385 @@
+{
+  "common": {
+    "siteTitle": "TodoTerramer",
+    "tagline": "Tu oportunidad de negocio con Terramar",
+    "loading": "Cargando...",
+    "error": "Ha ocurrido un error",
+    "success": "¡Éxito!",
+    "save": "Guardar",
+    "cancel": "Cancelar",
+    "delete": "Eliminar",
+    "edit": "Editar",
+    "add": "Agregar",
+    "search": "Buscar",
+    "filter": "Filtrar",
+    "export": "Exportar",
+    "back": "Regresar",
+    "next": "Siguiente",
+    "submit": "Enviar",
+    "close": "Cerrar",
+    "view": "Ver",
+    "more": "Ver más",
+    "less": "Ver menos",
+    "all": "Todos",
+    "yes": "Sí",
+    "no": "No",
+    "required": "Requerido",
+    "optional": "Opcional",
+    "new": "Nuevo",
+    "featured": "Destacado",
+    "active": "Activo",
+    "inactive": "Inactivo",
+    "published": "Publicado",
+    "draft": "Borrador",
+    "actions": "Acciones",
+    "status": "Estado",
+    "date": "Fecha",
+    "name": "Nombre",
+    "email": "Correo electrónico",
+    "phone": "Teléfono",
+    "message": "Mensaje",
+    "description": "Descripción",
+    "category": "Categoría",
+    "price": "Precio",
+    "image": "Imagen",
+    "language": "Idioma",
+    "spanish": "Español",
+    "english": "English",
+    "noResults": "No hay resultados",
+    "disclaimer": "Este sitio web es operado por una distribuidora independiente de Terramar y no representa a la empresa oficial de Terramar."
+  },
+  "nav": {
+    "home": "Inicio",
+    "about": "Acerca de Terramar",
+    "joinTeam": "Únete al Equipo",
+    "benefits": "Beneficios",
+    "promotions": "Promociones",
+    "videos": "Videos",
+    "products": "Productos",
+    "contact": "Contacto",
+    "blog": "Blog",
+    "register": "Regístrate",
+    "admin": "Admin",
+    "menu": "Menú"
+  },
+  "hero": {
+    "badge": "Distribuidora Independiente Terramar",
+    "title": "Transforma tu vida con",
+    "titleHighlight": "Terramar México",
+    "subtitle": "Únete a nuestro equipo de distribuidoras exitosas o descubre los mejores productos de belleza y bienestar. ¡Tu oportunidad de negocio te espera!",
+    "ctaJoin": "Quiero afiliarme",
+    "ctaBuy": "Quiero comprar productos",
+    "ctaWhatsApp": "Enviar WhatsApp",
+    "stats": {
+      "years": "Años de experiencia",
+      "products": "Productos disponibles",
+      "distributors": "Distribuidoras activas",
+      "satisfaction": "Satisfacción garantizada"
+    }
+  },
+  "benefits": {
+    "title": "¿Por qué elegir Terramar?",
+    "subtitle": "Descubre los beneficios únicos de unirte a la familia Terramar",
+    "items": {
+      "income": {
+        "title": "Ingresos adicionales",
+        "description": "Genera ganancias desde tu hogar con horario flexible y sin límite de ingresos"
+      },
+      "products": {
+        "title": "Productos de calidad",
+        "description": "Vende y usa los mejores productos de belleza, salud y bienestar del mercado"
+      },
+      "training": {
+        "title": "Capacitación continua",
+        "description": "Accede a videos de entrenamiento, manuales y el apoyo de todo el equipo"
+      },
+      "discounts": {
+        "title": "Descuentos exclusivos",
+        "description": "Como distribuidora, obtén descuentos especiales en todos los productos Terramar"
+      },
+      "community": {
+        "title": "Comunidad de apoyo",
+        "description": "Forma parte de una comunidad de mujeres exitosas que se apoyan mutuamente"
+      },
+      "schedule": {
+        "title": "Horario flexible",
+        "description": "Trabaja desde donde quieras y en los horarios que mejor te convengan"
+      }
+    }
+  },
+  "promotions": {
+    "title": "Promociones del Mes",
+    "subtitle": "No te pierdas nuestras ofertas especiales vigentes",
+    "noPromotions": "No hay promociones activas en este momento",
+    "download": "Descargar PDF",
+    "inquire": "Consultar por WhatsApp",
+    "expires": "Vigente hasta:",
+    "expired": "Expirada",
+    "viewAll": "Ver todas las promociones"
+  },
+  "videos": {
+    "title": "Videos de Capacitación",
+    "subtitle": "Aprende todo sobre los productos y cómo hacer crecer tu negocio",
+    "featured": "Video Destacado",
+    "noVideos": "No hay videos disponibles",
+    "viewAll": "Ver todos los videos",
+    "watch": "Ver video"
+  },
+  "products": {
+    "title": "Catálogo de Productos",
+    "subtitle": "Descubre nuestra línea completa de productos Terramar",
+    "noProducts": "No hay productos disponibles",
+    "viewAll": "Ver catálogo completo",
+    "inquire": "Quiero este producto",
+    "inStock": "En stock",
+    "outOfStock": "Agotado",
+    "comingSoon": "Próximamente",
+    "searchPlaceholder": "Buscar productos...",
+    "allCategories": "Todas las categorías",
+    "priceOptional": "Precio a consultar",
+    "featured": "Producto destacado"
+  },
+  "testimonials": {
+    "title": "Lo que dicen nuestras distribuidoras",
+    "subtitle": "Historias de éxito reales de mujeres que transformaron su vida con Terramar"
+  },
+  "faq": {
+    "title": "Preguntas Frecuentes",
+    "subtitle": "Resolvemos tus dudas más comunes sobre Terramar",
+    "items": {
+      "what": {
+        "q": "¿Qué es Terramar?",
+        "a": "Terramar es una empresa mexicana dedicada a la venta directa de productos de belleza, salud y bienestar. Con más de 30 años en el mercado, ofrece una oportunidad de negocio excepcional."
+      },
+      "howJoin": {
+        "q": "¿Cómo me afilio a Terramar?",
+        "a": "El proceso es muy sencillo: registra tu interés en este sitio, nos ponemos en contacto contigo, te explicamos todo el proceso y te ayudamos a comenzar tu negocio Terramar."
+      },
+      "investment": {
+        "q": "¿Cuánto necesito invertir para comenzar?",
+        "a": "La inversión inicial es mínima. Durante nuestro proceso de afiliación te explicaremos todos los detalles y opciones disponibles para comenzar."
+      },
+      "earnings": {
+        "q": "¿Cuánto puedo ganar con Terramar?",
+        "a": "Las ganancias son ilimitadas y dependen de tu dedicación y ventas. Muchas distribuidoras generan ingresos extras significativos trabajando desde casa."
+      },
+      "independent": {
+        "q": "¿Este es el sitio oficial de Terramar?",
+        "a": "No, este sitio es operado por una distribuidora independiente de Terramar. Para información oficial visita el sitio corporativo de Terramar México."
+      }
+    }
+  },
+  "contact": {
+    "title": "Contáctanos",
+    "subtitle": "Estamos aquí para ayudarte. Escríbenos y te responderemos a la brevedad.",
+    "form": {
+      "title": "Envíanos un mensaje",
+      "success": "¡Mensaje enviado! Te contactaremos pronto.",
+      "error": "Error al enviar. Por favor intenta de nuevo."
+    },
+    "whatsapp": "Escribir por WhatsApp",
+    "hours": "Horario de atención",
+    "hoursValue": "Lunes a Viernes 9:00 - 18:00",
+    "location": "Ciudad de México y área metropolitana"
+  },
+  "register": {
+    "title": "Regístrate Ahora",
+    "subtitle": "Completa el formulario y nos pondremos en contacto contigo para explicarte todos los detalles",
+    "form": {
+      "fullName": "Nombre completo",
+      "fullNamePlaceholder": "Tu nombre y apellido",
+      "phone": "Teléfono / WhatsApp",
+      "phonePlaceholder": "10 dígitos",
+      "email": "Correo electrónico",
+      "emailPlaceholder": "tu@email.com",
+      "city": "Ciudad",
+      "cityPlaceholder": "Tu ciudad",
+      "state": "Estado",
+      "statePlaceholder": "Selecciona tu estado",
+      "interest": "Me interesa...",
+      "interestJoin": "Unirme al equipo como distribuidora",
+      "interestBuy": "Comprar productos",
+      "interestBoth": "Ambas opciones",
+      "source": "¿Cómo nos encontraste?",
+      "sourceGoogle": "Google",
+      "sourceFacebook": "Facebook",
+      "sourceInstagram": "Instagram",
+      "sourceWhatsApp": "WhatsApp",
+      "sourceReferral": "Me lo recomendaron",
+      "sourceOther": "Otro",
+      "message": "Mensaje adicional (opcional)",
+      "messagePlaceholder": "Cuéntanos más sobre ti o tus preguntas...",
+      "consent": "Acepto el aviso de privacidad y el tratamiento de mis datos personales",
+      "promos": "Deseo recibir información sobre promociones y novedades",
+      "submit": "Enviar solicitud",
+      "success": "¡Gracias por registrarte! Nos pondremos en contacto contigo muy pronto.",
+      "error": "Hubo un error. Por favor intenta de nuevo.",
+      "successTitle": "¡Registro exitoso!",
+      "successMessage": "Hemos recibido tu solicitud. Uno de nuestros asesores te contactará en las próximas 24 horas."
+    },
+    "validation": {
+      "fullNameRequired": "El nombre es requerido",
+      "fullNameMin": "El nombre debe tener al menos 2 caracteres",
+      "phoneRequired": "El teléfono es requerido",
+      "phoneInvalid": "Ingresa un teléfono válido (10 dígitos)",
+      "emailInvalid": "Ingresa un correo electrónico válido",
+      "interestRequired": "Selecciona al menos un tipo de interés",
+      "sourceRequired": "Indica cómo nos encontraste",
+      "consentRequired": "Debes aceptar el aviso de privacidad para continuar"
+    }
+  },
+  "about": {
+    "title": "Acerca de Terramar",
+    "subtitle": "Conoce la empresa y el equipo detrás de TodoTerramer",
+    "whatIs": {
+      "title": "¿Qué es Terramar?",
+      "content": "Terramar es una empresa mexicana líder en la venta directa de productos de belleza, salud y bienestar. Con décadas de experiencia en el mercado mexicano, Terramar ha ayudado a miles de mujeres a construir su propio negocio y mejorar su calidad de vida."
+    },
+    "whyJoin": {
+      "title": "¿Por qué afiliarse a Terramar?",
+      "content": "Afiliarse a Terramar significa tener acceso a un catálogo completo de productos de alta calidad, recibir capacitación continua, contar con el apoyo de una red de distribuidoras experimentadas y tener la flexibilidad de trabajar en tus propios términos."
+    },
+    "whyBuy": {
+      "title": "¿Por qué comprar productos Terramar?",
+      "content": "Los productos Terramar son reconocidos por su calidad, efectividad y precio competitivo. Cada producto pasa por rigurosos controles de calidad para garantizar los mejores resultados."
+    },
+    "disclaimer": {
+      "title": "Aviso Importante",
+      "content": "TodoTerramer es un sitio web operado por una distribuidora independiente de Terramar. Este sitio no representa ni está afiliado oficialmente a la empresa corporativa Terramar México. Toda la información aquí presentada refleja la experiencia personal de la distribuidora."
+    }
+  },
+  "join": {
+    "title": "Únete a Mi Equipo",
+    "subtitle": "Comienza tu negocio Terramar hoy mismo",
+    "howItWorks": {
+      "title": "¿Cómo funciona el proceso?",
+      "step1": {
+        "title": "1. Regístrate",
+        "description": "Completa el formulario de registro con tus datos de contacto"
+      },
+      "step2": {
+        "title": "2. Te contactamos",
+        "description": "Uno de nuestros asesores se pondrá en contacto contigo"
+      },
+      "step3": {
+        "title": "3. Te afilias",
+        "description": "Con nuestro apoyo completas el proceso de afiliación con Terramar"
+      },
+      "step4": {
+        "title": "4. ¡Empieza a vender!",
+        "description": "Comienza a generar ingresos con tu propio negocio Terramar"
+      }
+    }
+  },
+  "footer": {
+    "tagline": "Tu distribuidora independiente de confianza",
+    "quickLinks": "Enlaces rápidos",
+    "contact": "Contacto",
+    "followUs": "Síguenos",
+    "disclaimer": "Sitio independiente. No es el sitio oficial de Terramar México.",
+    "privacy": "Aviso de Privacidad",
+    "terms": "Términos y Condiciones",
+    "rights": "Todos los derechos reservados"
+  },
+  "admin": {
+    "title": "Panel de Administración",
+    "dashboard": "Dashboard",
+    "leads": "Prospectos",
+    "promotions": "Promociones",
+    "videos": "Videos",
+    "products": "Productos",
+    "blog": "Blog",
+    "settings": "Configuración",
+    "chat": "Chat / Consultas",
+    "logout": "Cerrar sesión",
+    "login": {
+      "title": "Acceso Administrativo",
+      "subtitle": "Ingresa tus credenciales para acceder al panel",
+      "email": "Correo electrónico",
+      "password": "Contraseña",
+      "submit": "Ingresar",
+      "error": "Credenciales incorrectas"
+    },
+    "stats": {
+      "totalLeads": "Total de Prospectos",
+      "newLeads": "Prospectos Nuevos",
+      "contacted": "Contactados",
+      "affiliated": "Afiliados",
+      "buyers": "Compradores",
+      "notInterested": "No interesados",
+      "thisMonth": "Este mes",
+      "activePromos": "Promociones activas",
+      "publishedVideos": "Videos publicados"
+    },
+    "leadStatus": {
+      "NEW": "Nuevo",
+      "CONTACTED": "Contactado",
+      "FOLLOW_UP": "Seguimiento",
+      "AFFILIATED": "Afiliado",
+      "BUYER": "Comprador",
+      "NOT_INTERESTED": "No interesado"
+    },
+    "interest": {
+      "JOIN_TEAM": "Unirse al equipo",
+      "BUY_PRODUCTS": "Comprar productos",
+      "BOTH": "Ambos"
+    },
+    "source": {
+      "GOOGLE": "Google",
+      "FACEBOOK": "Facebook",
+      "INSTAGRAM": "Instagram",
+      "WHATSAPP": "WhatsApp",
+      "REFERRAL": "Referido",
+      "OTHER": "Otro"
+    }
+  },
+  "chat": {
+    "title": "¿Podemos ayudarte?",
+    "subtitle": "Escríbenos y te respondemos rápido",
+    "namePlaceholder": "Tu nombre",
+    "phonePlaceholder": "Tu WhatsApp",
+    "messagePlaceholder": "¿En qué podemos ayudarte?",
+    "send": "Enviar mensaje",
+    "whatsapp": "Chatear por WhatsApp",
+    "success": "¡Mensaje recibido! Te contactaremos pronto.",
+    "or": "o",
+    "open": "Chat",
+    "minimize": "Minimizar"
+  },
+  "cookies": {
+    "message": "Usamos cookies para mejorar tu experiencia en nuestro sitio web.",
+    "accept": "Aceptar",
+    "decline": "Rechazar",
+    "learnMore": "Más información"
+  },
+  "seo": {
+    "home": {
+      "title": "TodoTerramer - Distribuidora Terramar México | Afíliate y Compra Productos",
+      "description": "Únete al equipo Terramar México como distribuidora independiente o compra productos de belleza y bienestar de alta calidad. Descubre promociones, catálogo y más."
+    },
+    "about": {
+      "title": "Acerca de Terramar México | TodoTerramer",
+      "description": "Conoce todo sobre Terramar, la empresa mexicana líder en venta directa de productos de belleza y bienestar. Distribuidora independiente."
+    },
+    "join": {
+      "title": "Únete al Equipo Terramar | Afíliate y Gana Dinero desde Casa",
+      "description": "Afíliate a Terramar México y comienza tu propio negocio de venta directa. Horario flexible, capacitación incluida, sin límite de ingresos."
+    },
+    "products": {
+      "title": "Catálogo de Productos Terramar México | TodoTerramer",
+      "description": "Explora el catálogo completo de productos Terramar México. Belleza, salud y bienestar con la mejor calidad."
+    },
+    "promotions": {
+      "title": "Promociones Terramar del Mes | TodoTerramer",
+      "description": "Consulta las promociones y ofertas especiales de Terramar México vigentes este mes. Descarga el catálogo de promociones."
+    },
+    "contact": {
+      "title": "Contacto | TodoTerramer Distribuidora Terramar",
+      "description": "Contáctanos para más información sobre cómo afiliarte a Terramar o comprar productos. Respondemos por WhatsApp."
+    },
+    "register": {
+      "title": "Regístrate | Únete al Equipo Terramar México",
+      "description": "Registra tu interés en Terramar México. Únete al equipo o compra productos. Afiliación fácil y rápida."
+    }
+  }
+}

@@ -1,0 +1,381 @@
+import { Metadata } from "next";
+import { getTranslations } from "next-intl/server";
+import Image from "next/image";
+import { prisma } from "@/lib/prisma";
+import {
+  Download,
+  MessageCircle,
+  Sparkles,
+  Tag,
+  Timer,
+  CheckCircle2,
+} from "lucide-react";
+import { formatDate, getWhatsAppUrl } from "@/lib/utils";
+import { PromoFeaturedCard } from "@/components/public/promo-featured-card";
+import { PromoBeautyStrip, type SliderImageItem } from "@/components/public/promo-beauty-strip";
+
+export async function generateMetadata({
+  params,
+}: {
+  params: Promise<{ locale: string }>;
+}): Promise<Metadata> {
+  const { locale } = await params;
+  const t = await getTranslations({ locale, namespace: "seo.promotions" });
+  return { title: t("title"), description: t("description") };
+}
+
+const FALLBACK_SLIDER_IMAGES: SliderImageItem[] = [
+  { id: "fb-1", imageUrl: "https://images.unsplash.com/photo-1598440947619-2c35fc9aa908?w=400&h=400&q=80&auto=format&fit=crop", titleEs: "Skincare Esenciales", titleEn: "Skincare Essentials", altTextEs: null, altTextEn: null, linkUrl: null },
+  { id: "fb-2", imageUrl: "https://images.unsplash.com/photo-1596462502278-27bfdc403348?w=400&h=400&q=80&auto=format&fit=crop", titleEs: "Colección Maquillaje", titleEn: "Makeup Collection", altTextEs: null, altTextEn: null, linkUrl: null },
+  { id: "fb-3", imageUrl: "https://images.unsplash.com/photo-1571781926291-c477ebfd024b?w=400&h=400&q=80&auto=format&fit=crop", titleEs: "Serum Tratamiento", titleEn: "Serum Treatment", altTextEs: null, altTextEn: null, linkUrl: null },
+  { id: "fb-4", imageUrl: "https://images.unsplash.com/photo-1616394584738-fc6e612e71b9?w=400&h=400&q=80&auto=format&fit=crop", titleEs: "Ritual Facial", titleEn: "Facial Ritual", altTextEs: null, altTextEn: null, linkUrl: null },
+  { id: "fb-5", imageUrl: "https://images.unsplash.com/photo-1608248543803-ba4f8c70ae0b?w=400&h=400&q=80&auto=format&fit=crop", titleEs: "Hidratante Premium", titleEn: "Premium Moisturizer", altTextEs: null, altTextEn: null, linkUrl: null },
+  { id: "fb-6", imageUrl: "https://images.unsplash.com/photo-1583241800698-e8ab01830a09?w=400&h=400&q=80&auto=format&fit=crop", titleEs: "Set Belleza", titleEn: "Beauty Set", altTextEs: null, altTextEn: null, linkUrl: null },
+];
+
+async function getPromotions() {
+  try {
+    return prisma.promotion.findMany({
+      where: { isActive: true },
+      orderBy: [{ sortOrder: "asc" }, { createdAt: "desc" }],
+    });
+  } catch {
+    return [];
+  }
+}
+
+async function getSliderImages(): Promise<SliderImageItem[]> {
+  try {
+    const rows = await prisma.promotionSliderImage.findMany({
+      where: { isPublished: true },
+      orderBy: [{ sortOrder: "asc" }, { createdAt: "asc" }],
+    });
+    return rows.length > 0
+      ? rows.map(({ id, imageUrl, titleEs, titleEn, altTextEs, altTextEn, linkUrl }) => ({
+          id, imageUrl, titleEs, titleEn, altTextEs, altTextEn, linkUrl,
+        }))
+      : FALLBACK_SLIDER_IMAGES;
+  } catch {
+    return FALLBACK_SLIDER_IMAGES;
+  }
+}
+
+export default async function PromotionsPage({
+  params,
+}: {
+  params: Promise<{ locale: string }>;
+}) {
+  const { locale } = await params;
+  const t = await getTranslations({ locale, namespace: "promotions" });
+  const whatsappPhone = process.env.NEXT_PUBLIC_WHATSAPP_NUMBER || "";
+
+  const [rawPromotions, sliderImages] = await Promise.all([
+    getPromotions(),
+    getSliderImages(),
+  ]);
+
+  const promotions = rawPromotions.map((p) => ({
+    ...p,
+    startDate: p.startDate.toISOString(),
+    endDate: p.endDate?.toISOString() ?? null,
+    createdAt: p.createdAt.toISOString(),
+    updatedAt: p.updatedAt.toISOString(),
+  }));
+
+  const isExpired = (endDate: string | null) =>
+    endDate ? new Date(endDate) < new Date() : false;
+  const active = promotions.filter((p) => !isExpired(p.endDate));
+  const expired = promotions.filter((p) => isExpired(p.endDate));
+
+  const getTitle = (p: (typeof promotions)[0]) =>
+    locale === "en" && p.titleEn ? p.titleEn : p.titleEs;
+
+  return (
+    <div className="min-h-screen">
+
+      {/* ── Hero header ──────────────────────────────────────────────── */}
+      <div
+        className="relative overflow-hidden pt-10 pb-16"
+        style={{ background: "linear-gradient(135deg, #08051f 0%, #15104a 55%, #1d1760 100%)" }}
+      >
+        {/* Gold radial accent */}
+        <div
+          className="absolute inset-0 pointer-events-none"
+          style={{ background: "radial-gradient(circle at 70% 40%, rgba(215,168,79,0.12) 0%, transparent 55%)" }}
+        />
+        {/* Subtle dot texture */}
+        <div
+          className="absolute inset-0 opacity-[0.025] pointer-events-none"
+          style={{
+            backgroundImage: "radial-gradient(circle at 1px 1px, rgba(215,168,79,0.8) 1px, transparent 0)",
+            backgroundSize: "28px 28px",
+          }}
+        />
+
+        <div className="relative max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 text-center">
+          <span
+            className="inline-flex items-center gap-2 text-sm font-semibold px-4 py-1.5 rounded-full border mb-5"
+            style={{ borderColor: "rgba(215,168,79,0.45)", color: "#f3d184", background: "rgba(215,168,79,0.08)" }}
+          >
+            <Sparkles className="w-3.5 h-3.5" style={{ color: "#d7a84f" }} />
+            Ofertas Exclusivas Terramar
+          </span>
+          <h1 className="text-4xl sm:text-5xl lg:text-6xl font-bold text-white mb-4">
+            {t("title")}
+          </h1>
+          <p className="text-lg max-w-2xl mx-auto" style={{ color: "rgba(255,255,255,0.70)" }}>
+            Ofertas especiales para cuidar tu piel, verte increíble y comenzar tu negocio Terramar
+          </p>
+          <div className="gold-divider max-w-[80px] mx-auto mt-6" />
+        </div>
+      </div>
+
+      <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-16">
+
+        {/* ── Product showcase strip ────────────────────────────────── */}
+        <div className="mb-16">
+          <p
+            className="text-xs font-semibold uppercase tracking-widest mb-4 text-center"
+            style={{ color: "#d7a84f" }}
+          >
+            Línea de productos
+          </p>
+          <PromoBeautyStrip images={sliderImages} locale={locale} />
+        </div>
+
+        {/* ── No promotions state ───────────────────────────────────── */}
+        {active.length === 0 && expired.length === 0 && (
+          <div className="text-center py-24">
+            <div
+              className="w-24 h-24 rounded-3xl flex items-center justify-center mx-auto mb-6 border-2"
+              style={{ background: "rgba(215,168,79,0.08)", borderColor: "rgba(215,168,79,0.20)" }}
+            >
+              <Sparkles className="w-10 h-10" style={{ color: "rgba(215,168,79,0.50)" }} />
+            </div>
+            <h2 className="text-2xl font-bold text-gray-700 mb-3">Próximas promociones</h2>
+            <p className="text-gray-400 max-w-sm mx-auto leading-relaxed">
+              {t("noPromotions")}. ¡Vuelve pronto para descubrir nuestras ofertas exclusivas!
+            </p>
+          </div>
+        )}
+
+        {/* ── Active promotions ─────────────────────────────────────── */}
+        {active.length > 0 && (
+          <>
+            {/* Featured (first active) */}
+            <div className="mb-12">
+              <h2 className="text-xs font-semibold uppercase tracking-widest mb-6" style={{ color: "#d7a84f" }}>
+                Promoción destacada
+              </h2>
+              <PromoFeaturedCard
+                promo={active[0]}
+                locale={locale}
+                whatsappPhone={whatsappPhone}
+              />
+            </div>
+
+            {/* Rest of active */}
+            {active.length > 1 && (
+              <>
+                <h2 className="text-xs font-semibold uppercase tracking-widest mb-6" style={{ color: "#d7a84f" }}>
+                  Más promociones activas
+                </h2>
+                <div
+                  className={
+                    active.slice(1).length === 1
+                      ? "grid grid-cols-1 max-w-md"
+                      : "grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6"
+                  }
+                >
+                  {active.slice(1).map((promo) => {
+                    const title = getTitle(promo);
+                    return (
+                      <PromoCard
+                        key={promo.id}
+                        promo={promo}
+                        title={title}
+                        locale={locale}
+                        whatsappPhone={whatsappPhone}
+                        expired={false}
+                        tExpires={t("expires")}
+                        tDownload={t("download")}
+                        tInquire={t("inquire")}
+                      />
+                    );
+                  })}
+                </div>
+              </>
+            )}
+          </>
+        )}
+
+        {/* ── Expired promotions ────────────────────────────────────── */}
+        {expired.length > 0 && (
+          <div className="mt-16">
+            <h2 className="text-xs font-semibold text-gray-400 uppercase tracking-widest mb-6">
+              Promociones anteriores
+            </h2>
+            <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6 opacity-60">
+              {expired.map((promo) => {
+                const title = getTitle(promo);
+                return (
+                  <PromoCard
+                    key={promo.id}
+                    promo={promo}
+                    title={title}
+                    locale={locale}
+                    whatsappPhone={whatsappPhone}
+                    expired={true}
+                    tExpires={t("expires")}
+                    tDownload={t("download")}
+                    tInquire={t("inquire")}
+                  />
+                );
+              })}
+            </div>
+          </div>
+        )}
+      </div>
+    </div>
+  );
+}
+
+// ── Shared promotion card ─────────────────────────────────────────────────────
+
+interface PromoCardProps {
+  promo: {
+    id: string;
+    titleEs: string;
+    titleEn: string | null;
+    descriptionEs: string | null;
+    imageUrl: string | null;
+    pdfUrl: string | null;
+    endDate: string | null;
+  };
+  title: string;
+  locale: string;
+  whatsappPhone: string;
+  expired: boolean;
+  tExpires: string;
+  tDownload: string;
+  tInquire: string;
+}
+
+function PromoCard({
+  promo,
+  title,
+  locale,
+  whatsappPhone,
+  expired,
+  tExpires,
+  tDownload,
+  tInquire,
+}: PromoCardProps) {
+  return (
+    <div
+      className={`group bg-white rounded-3xl overflow-hidden border shadow-sm transition-all duration-300 ${
+        expired
+          ? "border-gray-200 grayscale-[30%]"
+          : "hover:-translate-y-2 hover:shadow-lg"
+      }`}
+      style={expired ? {} : { borderColor: "rgba(215,168,79,0.25)" }}
+    >
+      {/* Image */}
+      <div className="relative h-56 overflow-hidden" style={{ background: "#f8f3ea" }}>
+        {promo.imageUrl ? (
+          <Image
+            src={promo.imageUrl}
+            alt={title}
+            fill
+            className={`object-cover ${!expired ? "group-hover:scale-105 transition-transform duration-500" : ""}`}
+            sizes="(max-width: 768px) 100vw, 33vw"
+          />
+        ) : (
+          <div className="h-full flex items-center justify-center">
+            <Tag className="w-12 h-12" style={{ color: "rgba(215,168,79,0.45)" }} />
+          </div>
+        )}
+        <div className="absolute inset-0 bg-gradient-to-t from-[#08051f]/40 via-transparent to-transparent" />
+        <div className="absolute top-3 right-3">
+          {expired ? (
+            <span className="bg-gray-500 text-white text-xs font-bold px-2.5 py-1 rounded-full">
+              Expirada
+            </span>
+          ) : (
+            <span
+              className="text-xs font-bold px-2.5 py-1 rounded-full shadow-sm flex items-center gap-1"
+              style={{ background: "linear-gradient(135deg, #c4922c, #f0d18a)", color: "#08051f" }}
+            >
+              <Sparkles className="w-2.5 h-2.5" />
+              ¡Activa!
+            </span>
+          )}
+        </div>
+      </div>
+
+      <div className="p-6">
+        <h3 className="font-bold text-gray-900 text-lg mb-2 line-clamp-2 leading-snug">
+          {title}
+        </h3>
+        {promo.descriptionEs && (
+          <p className="text-sm text-gray-500 line-clamp-3 mb-4 leading-relaxed">
+            {promo.descriptionEs}
+          </p>
+        )}
+
+        {!expired && (
+          <ul className="space-y-1.5 mb-4">
+            {["Envío disponible", "Asesoría personalizada"].map((b) => (
+              <li key={b} className="flex items-center gap-2 text-xs text-gray-500">
+                <CheckCircle2 className="w-3.5 h-3.5 flex-shrink-0" style={{ color: "#d7a84f" }} />
+                {b}
+              </li>
+            ))}
+          </ul>
+        )}
+
+        {promo.endDate && (
+          <div className="flex items-center gap-1.5 text-xs text-amber-800 bg-amber-50 px-3 py-1.5 rounded-full mb-4 w-fit border border-amber-100">
+            <Timer className="w-3.5 h-3.5" />
+            <span className="font-semibold">
+              {tExpires}{" "}
+              {formatDate(promo.endDate, locale === "en" ? "en-US" : "es-MX")}
+            </span>
+          </div>
+        )}
+
+        {!expired && (
+          <div className="flex gap-2">
+            {promo.pdfUrl && (
+              <a
+                href={promo.pdfUrl}
+                download
+                target="_blank"
+                rel="noopener noreferrer"
+                className="flex-1 flex items-center justify-center gap-1.5 py-2.5 rounded-2xl border-2 text-xs font-semibold transition-colors"
+                style={{ borderColor: "rgba(215,168,79,0.45)", color: "#15104a" }}
+              >
+                <Download className="w-3.5 h-3.5" />
+                {tDownload}
+              </a>
+            )}
+            {whatsappPhone && (
+              <a
+                href={getWhatsAppUrl(
+                  whatsappPhone,
+                  `Hola! Me interesa la promoción: ${title}`
+                )}
+                target="_blank"
+                rel="noopener noreferrer"
+                className="flex-1 flex items-center justify-center gap-1.5 py-2.5 rounded-2xl bg-gradient-to-r from-[#22c55e] to-[#16a34a] text-white text-xs font-semibold hover:from-[#1fba59] hover:to-[#15803d] transition-all shadow-sm"
+              >
+                <MessageCircle className="w-3.5 h-3.5" />
+                {tInquire}
+              </a>
+            )}
+          </div>
+        )}
+      </div>
+    </div>
+  );
+}

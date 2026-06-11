@@ -1,0 +1,359 @@
+generator client {
+  provider = "prisma-client-js"
+}
+
+datasource db {
+  provider = "postgresql"
+  url      = env("DATABASE_URL")
+}
+
+// ─── Auth ────────────────────────────────────────────────────────────────────
+
+model User {
+  id            String    @id @default(cuid())
+  name          String?
+  email         String    @unique
+  emailVerified DateTime?
+  password      String?
+  image         String?
+  role          UserRole  @default(ADMIN)
+  createdAt     DateTime  @default(now())
+  updatedAt     DateTime  @updatedAt
+
+  accounts  Account[]
+  sessions  Session[]
+  auditLogs AuditLog[]
+
+  @@map("users")
+}
+
+model Account {
+  id                String  @id @default(cuid())
+  userId            String
+  type              String
+  provider          String
+  providerAccountId String
+  refresh_token     String? @db.Text
+  access_token      String? @db.Text
+  expires_at        Int?
+  token_type        String?
+  scope             String?
+  id_token          String? @db.Text
+  session_state     String?
+
+  user User @relation(fields: [userId], references: [id], onDelete: Cascade)
+
+  @@unique([provider, providerAccountId])
+  @@map("accounts")
+}
+
+model Session {
+  id           String   @id @default(cuid())
+  sessionToken String   @unique
+  userId       String
+  expires      DateTime
+
+  user User @relation(fields: [userId], references: [id], onDelete: Cascade)
+
+  @@map("sessions")
+}
+
+model VerificationToken {
+  identifier String
+  token      String   @unique
+  expires    DateTime
+
+  @@unique([identifier, token])
+  @@map("verification_tokens")
+}
+
+// ─── Leads ───────────────────────────────────────────────────────────────────
+
+model Lead {
+  id           String      @id @default(cuid())
+  fullName     String
+  phone        String
+  email        String?
+  city         String?
+  state        String?
+  interest     Interest    @default(BOTH)
+  source       LeadSource  @default(OTHER)
+  message      String?     @db.Text
+  status       LeadStatus  @default(NEW)
+  followUpDate DateTime?
+  consentGiven Boolean     @default(false)
+  wantsPromos  Boolean     @default(false)
+
+  // UTM / marketing tracking
+  utmSource   String?
+  utmMedium   String?
+  utmCampaign String?
+  utmTerm     String?
+  utmContent  String?
+  referrerUrl String?
+  landingPage String?
+
+  // Product inquiry (optional link)
+  productId   String?
+  productName String?
+
+  createdAt DateTime @default(now())
+  updatedAt DateTime @updatedAt
+
+  notes LeadNote[]
+
+  @@index([status])
+  @@index([source])
+  @@index([interest])
+  @@index([createdAt])
+  @@map("leads")
+}
+
+model LeadNote {
+  id        String   @id @default(cuid())
+  leadId    String
+  content   String   @db.Text
+  createdAt DateTime @default(now())
+
+  lead Lead @relation(fields: [leadId], references: [id], onDelete: Cascade)
+
+  @@map("lead_notes")
+}
+
+// ─── Promotions ──────────────────────────────────────────────────────────────
+
+model Promotion {
+  id          String    @id @default(cuid())
+  titleEs     String
+  titleEn     String?
+  descriptionEs String? @db.Text
+  descriptionEn String? @db.Text
+  imageUrl    String?
+  pdfUrl      String?
+  startDate   DateTime  @default(now())
+  endDate     DateTime?
+  isActive    Boolean   @default(true)
+  sortOrder   Int       @default(0)
+  createdAt   DateTime  @default(now())
+  updatedAt   DateTime  @updatedAt
+
+  @@index([isActive])
+  @@index([endDate])
+  @@map("promotions")
+}
+
+// ─── Videos ──────────────────────────────────────────────────────────────────
+
+model Video {
+  id           String     @id @default(cuid())
+  titleEs      String
+  titleEn      String?
+  descriptionEs String?   @db.Text
+  descriptionEn String?   @db.Text
+  category     String?
+  videoUrl     String?
+  externalUrl  String?
+  thumbnailUrl String?
+  isFeatured   Boolean    @default(false)
+  isPublished  Boolean    @default(true)
+  sortOrder    Int        @default(0)
+  createdAt    DateTime   @default(now())
+  updatedAt    DateTime   @updatedAt
+
+  @@index([isPublished])
+  @@index([isFeatured])
+  @@map("videos")
+}
+
+// ─── Products ─────────────────────────────────────────────────────────────────
+
+model ProductCategory {
+  id        String    @id @default(cuid())
+  nameEs    String
+  nameEn    String?
+  slug      String    @unique
+  sortOrder Int       @default(0)
+  createdAt DateTime  @default(now())
+  updatedAt DateTime  @updatedAt
+
+  products Product[]
+
+  @@map("product_categories")
+}
+
+model Product {
+  id              String          @id @default(cuid())
+  nameEs          String
+  nameEn          String?
+  descriptionEs   String?         @db.Text
+  descriptionEn   String?         @db.Text
+  price           Decimal?        @db.Decimal(10, 2)
+  categoryId      String?
+  imageUrl        String?
+  availability    Availability    @default(IN_STOCK)
+  isFeatured      Boolean         @default(false)
+  isPublished     Boolean         @default(true)
+  sortOrder       Int             @default(0)
+  createdAt       DateTime        @default(now())
+  updatedAt       DateTime        @updatedAt
+
+  category ProductCategory? @relation(fields: [categoryId], references: [id])
+
+  @@index([isPublished])
+  @@index([isFeatured])
+  @@index([categoryId])
+  @@map("products")
+}
+
+// ─── Blog Posts ───────────────────────────────────────────────────────────────
+
+model BlogPost {
+  id           String    @id @default(cuid())
+  title        String
+  slug         String    @unique
+  content      String    @db.Text
+  excerpt      String?   @db.Text
+  coverImage   String?
+  seoTitle     String?
+  seoDesc      String?
+  language     Language  @default(ES)
+  isPublished  Boolean   @default(false)
+  publishedAt  DateTime?
+  createdAt    DateTime  @default(now())
+  updatedAt    DateTime  @updatedAt
+
+  @@index([slug])
+  @@index([language])
+  @@index([isPublished])
+  @@map("blog_posts")
+}
+
+// ─── Chat Inquiries ───────────────────────────────────────────────────────────
+
+model ChatInquiry {
+  id        String      @id @default(cuid())
+  name      String
+  phone     String?
+  email     String?
+  message   String      @db.Text
+  isRead    Boolean     @default(false)
+  createdAt DateTime    @default(now())
+
+  @@index([isRead])
+  @@map("chat_inquiries")
+}
+
+// ─── Promotion Slider Images ──────────────────────────────────────────────────
+
+model PromotionSliderImage {
+  id             String   @id @default(cuid())
+  titleEs        String
+  titleEn        String?
+  subtitleEs     String?
+  subtitleEn     String?
+  imageUrl       String
+  mobileImageUrl String?
+  imageFit       String   @default("contain")
+  imagePosition  String   @default("center")
+  altTextEs      String?
+  altTextEn      String?
+  linkUrl        String?
+  ctaTextEs      String?
+  ctaTextEn      String?
+  sortOrder      Int      @default(0)
+  isPublished    Boolean  @default(true)
+  createdAt      DateTime @default(now())
+  updatedAt      DateTime @updatedAt
+
+  @@index([isPublished])
+  @@index([sortOrder])
+  @@map("promotion_slider_images")
+}
+
+// ─── Site Settings ────────────────────────────────────────────────────────────
+
+model SiteSetting {
+  id        String   @id @default(cuid())
+  key       String   @unique
+  value     String   @db.Text
+  updatedAt DateTime @updatedAt
+
+  @@map("site_settings")
+}
+
+// ─── Uploaded Files ───────────────────────────────────────────────────────────
+
+model UploadedFile {
+  id           String     @id @default(cuid())
+  filename     String
+  url          String
+  fileType     String
+  size         Int
+  entityType   String?
+  entityId     String?
+  uploadedAt   DateTime   @default(now())
+
+  @@index([entityType, entityId])
+  @@map("uploaded_files")
+}
+
+// ─── Audit Logs ───────────────────────────────────────────────────────────────
+
+model AuditLog {
+  id        String   @id @default(cuid())
+  userId    String?
+  action    String
+  entity    String
+  entityId  String?
+  details   String?  @db.Text
+  ip        String?
+  createdAt DateTime @default(now())
+
+  user User? @relation(fields: [userId], references: [id])
+
+  @@index([entity])
+  @@index([createdAt])
+  @@map("audit_logs")
+}
+
+// ─── Enums ────────────────────────────────────────────────────────────────────
+
+enum UserRole {
+  ADMIN
+  SUPER_ADMIN
+}
+
+enum Interest {
+  JOIN_TEAM
+  BUY_PRODUCTS
+  BOTH
+}
+
+enum LeadSource {
+  GOOGLE
+  FACEBOOK
+  INSTAGRAM
+  WHATSAPP
+  REFERRAL
+  OTHER
+}
+
+enum LeadStatus {
+  NEW
+  CONTACTED
+  FOLLOW_UP
+  AFFILIATED
+  BUYER
+  NOT_INTERESTED
+}
+
+enum Availability {
+  IN_STOCK
+  OUT_OF_STOCK
+  COMING_SOON
+}
+
+enum Language {
+  ES
+  EN
+}
