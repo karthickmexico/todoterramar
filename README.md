@@ -2,7 +2,7 @@
 
 **Plataforma de generación de leads y afiliación para distribuidoras independientes Terramar en México.**
 
-Una aplicación web full-stack, production-ready, bilingüe (Español/English), con panel de administración completo, SEO optimizado y sistema de gestión de prospectos.
+Una aplicacion web full-stack, production-ready, bilingüe (Español/English), con panel de administración completo, SEO optimizado y sistema de gestión de prospectos.
 
 ---
 
