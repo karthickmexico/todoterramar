@@ -7,6 +7,7 @@ const nextConfig: NextConfig = {
   devIndicators: false,
   images: {
     remotePatterns: [
+      { protocol: "https", hostname: "*.public.blob.vercel-storage.com" },
       { protocol: "https", hostname: "utfs.io" },
       { protocol: "https", hostname: "uploadthing.com" },
       { protocol: "https", hostname: "res.cloudinary.com" },

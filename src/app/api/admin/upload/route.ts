@@ -1,6 +1,5 @@
 import { NextRequest, NextResponse } from "next/server";
-import { writeFile, mkdir } from "fs/promises";
-import { join } from "path";
+import { put } from "@vercel/blob";
 import { getAdminSession } from "@/lib/auth";
 
 const ALLOWED_TYPES = ["image/jpeg", "image/png", "image/webp", "image/gif"];
@@ -36,7 +35,7 @@ export async function POST(request: NextRequest) {
 
   if (file.size > MAX_SIZE) {
     return NextResponse.json(
-      { error: "El archivo es demasiado grande. Máximo 5 MB." },
+      { error: "El archivo es demasiado grande. Máximo 10 MB." },
       { status: 400 }
     );
   }
@@ -47,13 +46,9 @@ export async function POST(request: NextRequest) {
     .replace(/[^a-z0-9]/gi, "-")
     .toLowerCase()
     .slice(0, 40);
-  const filename = `${Date.now()}-${Math.random().toString(36).slice(2, 8)}-${safeName}.${ext}`;
+  const filename = `${folder}/${Date.now()}-${Math.random().toString(36).slice(2, 8)}-${safeName}.${ext}`;
 
-  const uploadDir = join(process.cwd(), "public", "uploads", folder);
-  await mkdir(uploadDir, { recursive: true });
+  const blob = await put(filename, file, { access: "public" });
 
-  const bytes = await file.arrayBuffer();
-  await writeFile(join(uploadDir, filename), Buffer.from(bytes));
-
-  return NextResponse.json({ url: `/uploads/${folder}/${filename}` });
+  return NextResponse.json({ url: blob.url });
 }

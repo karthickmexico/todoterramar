@@ -8,7 +8,7 @@ Una aplicación web full-stack, production-ready, bilingüe (Español/English), 
 
 ## 🚀 Stack Tecnológico
 
-| Tecnología | Descripcion |
+| Tecnologia | Descripcion |
 |------------|-------------|
 | Next.js 16 App Router | Framework SSR/SSG |
 | TypeScript | Tipado estático |
