@@ -2,7 +2,6 @@ import { Metadata } from "next";
 import { getTranslations } from "next-intl/server";
 import { prisma } from "@/lib/prisma";
 import { Sparkles } from "lucide-react";
-import { PromoFeaturedCard } from "@/components/public/promo-featured-card";
 import { PromoCard } from "@/components/public/promo-card";
 import { PromoBeautyStrip, type SliderImageItem } from "@/components/public/promo-beauty-strip";
 
@@ -154,50 +153,35 @@ export default async function PromotionsPage({
         {/* ── Active promotions ─────────────────────────────────────── */}
         {active.length > 0 && (
           <>
-            {/* Featured (first active) */}
-            <div className="mb-12">
-              <h2 className="text-xs font-semibold uppercase tracking-widest mb-6" style={{ color: "#d7a84f" }}>
-                Promoción destacada
-              </h2>
-              <PromoFeaturedCard
-                promo={active[0]}
-                locale={locale}
-                whatsappPhone={whatsappPhone}
-              />
+            <h2 className="text-xs font-semibold uppercase tracking-widest mb-6" style={{ color: "#d7a84f" }}>
+              Promociones activas
+            </h2>
+            <div
+              className={
+                active.length === 1
+                  ? "grid grid-cols-1 max-w-md"
+                  : active.length === 2
+                  ? "grid grid-cols-1 md:grid-cols-2 gap-6"
+                  : "grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6"
+              }
+            >
+              {active.map((promo) => {
+                const title = getTitle(promo);
+                return (
+                  <PromoCard
+                    key={promo.id}
+                    promo={promo}
+                    title={title}
+                    locale={locale}
+                    whatsappPhone={whatsappPhone}
+                    expired={false}
+                    tExpires={t("expires")}
+                    tDownload={t("download")}
+                    tInquire={t("inquire")}
+                  />
+                );
+              })}
             </div>
-
-            {/* Rest of active */}
-            {active.length > 1 && (
-              <>
-                <h2 className="text-xs font-semibold uppercase tracking-widest mb-6" style={{ color: "#d7a84f" }}>
-                  Más promociones activas
-                </h2>
-                <div
-                  className={
-                    active.slice(1).length === 1
-                      ? "grid grid-cols-1 max-w-md"
-                      : "grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6"
-                  }
-                >
-                  {active.slice(1).map((promo) => {
-                    const title = getTitle(promo);
-                    return (
-                      <PromoCard
-                        key={promo.id}
-                        promo={promo}
-                        title={title}
-                        locale={locale}
-                        whatsappPhone={whatsappPhone}
-                        expired={false}
-                        tExpires={t("expires")}
-                        tDownload={t("download")}
-                        tInquire={t("inquire")}
-                      />
-                    );
-                  })}
-                </div>
-              </>
-            )}
           </>
         )}
 
