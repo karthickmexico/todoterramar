@@ -26,20 +26,19 @@ export function ImageUpload({
     setError(null);
     setUploading(true);
     try {
-      const fd = new FormData();
-      fd.append("file", file);
-      fd.append("folder", folder);
+      const formData = new FormData();
+      formData.append("image", file);
+      formData.append("folder", folder || "uploads");
 
-      const res = await fetch("/api/admin/upload", { method: "POST", body: fd });
+      const res = await fetch("/api/admin/upload", { method: "POST", body: formData });
       const data = await res.json();
 
       if (!res.ok) {
-        setError(data.error ?? "Error al subir la imagen");
-        return;
+        throw new Error(data.error || "Error al subir la imagen.");
       }
       onChange(data.url);
-    } catch {
-      setError("Error al subir la imagen. Intenta de nuevo.");
+    } catch (err) {
+      setError(err instanceof Error ? err.message : "Error al subir la imagen. Intenta de nuevo.");
     } finally {
       setUploading(false);
     }
