@@ -2,7 +2,6 @@
 
 import { useEffect, useCallback, useState } from "react";
 import useEmblaCarousel from "embla-carousel-react";
-import Image from "next/image";
 import {
   MessageCircle,
   Download,
@@ -11,14 +10,10 @@ import {
   ChevronLeft,
   ChevronRight,
   Timer,
+  Tag,
 } from "lucide-react";
 import { useTranslations } from "next-intl";
 import { cn, formatDate, getWhatsAppUrl } from "@/lib/utils";
-
-const LIFESTYLE_IMAGES = [
-  "https://images.unsplash.com/photo-1616394584738-fc6e612e71b9?w=900&h=640&q=85&auto=format&fit=crop",
-  "https://images.unsplash.com/photo-1583241800698-e8ab01830a09?w=900&h=640&q=85&auto=format&fit=crop",
-];
 
 const BENEFITS = [
   "Envío disponible en todo México",
@@ -45,12 +40,15 @@ interface PromoFeaturedCardProps {
 export function PromoFeaturedCard({ promo, locale, whatsappPhone }: PromoFeaturedCardProps) {
   const t = useTranslations("promotions");
 
-  const slides = [
-    promo.imageUrl ?? LIFESTYLE_IMAGES[0],
-    ...LIFESTYLE_IMAGES,
-  ];
+  // Only use real admin-uploaded images — no fake placeholders
+  const isOldLocalPath = (url: string | null) => !!url?.startsWith("/uploads/");
+  const validImageUrl =
+    promo.imageUrl && !isOldLocalPath(promo.imageUrl) ? promo.imageUrl : null;
+  const slides = validImageUrl ? [validImageUrl] : [];
 
-  const [emblaRef, emblaApi] = useEmblaCarousel({ loop: true });
+  const hasCarousel = slides.length > 1;
+
+  const [emblaRef, emblaApi] = useEmblaCarousel({ loop: hasCarousel, active: hasCarousel });
   const [selectedIndex, setSelectedIndex] = useState(0);
   const [scrollSnaps, setScrollSnaps] = useState<number[]>([]);
 
@@ -63,12 +61,13 @@ export function PromoFeaturedCard({ promo, locale, whatsappPhone }: PromoFeature
     const onSelect = () => setSelectedIndex(emblaApi.selectedScrollSnap());
     emblaApi.on("select", onSelect);
     onSelect();
+    if (!hasCarousel) return;
     const id = setInterval(() => emblaApi.scrollNext(), 3800);
     return () => {
       clearInterval(id);
       emblaApi.off("select", onSelect);
     };
-  }, [emblaApi]);
+  }, [emblaApi, hasCarousel]);
 
   const title = locale === "en" && promo.titleEn ? promo.titleEn : promo.titleEs;
 
@@ -79,25 +78,83 @@ export function PromoFeaturedCard({ promo, locale, whatsappPhone }: PromoFeature
     >
       <div className="grid md:grid-cols-2">
 
-        {/* ── LEFT: Image slider ─────────────────────────────────────── */}
+        {/* ── LEFT: Image ─────────────────────────────────────────────── */}
         <div className="relative overflow-hidden min-h-[300px] md:min-h-[460px]" style={{ background: "#f8f3ea" }}>
-          <div className="overflow-hidden h-full absolute inset-0" ref={emblaRef}>
-            <div className="flex h-full">
-              {slides.map((src, i) => (
-                <div key={i} className="flex-none w-full relative min-h-[300px] md:min-h-[460px]">
-                  <Image
-                    src={src}
-                    alt={`${title} - imagen ${i + 1}`}
-                    fill
-                    priority={i === 0}
-                    className="object-cover"
-                    sizes="(max-width: 768px) 100vw, 50vw"
-                  />
-                  <div className="absolute inset-0 bg-gradient-to-t from-[#08051f]/50 via-transparent to-transparent" />
+
+          {slides.length > 0 ? (
+            <>
+              <div className="overflow-hidden h-full absolute inset-0" ref={emblaRef}>
+                <div className="flex h-full">
+                  {slides.map((src, i) => (
+                    <div key={i} className="flex-none w-full relative min-h-[300px] md:min-h-[460px]">
+                      {/* eslint-disable-next-line @next/next/no-img-element */}
+                      <img
+                        src={src}
+                        alt={title}
+                        className="absolute inset-0 w-full h-full object-cover"
+                        onError={(e) => {
+                          const el = e.currentTarget.parentElement;
+                          if (el) el.style.background = "#f8f3ea";
+                          e.currentTarget.style.display = "none";
+                        }}
+                      />
+                      <div className="absolute inset-0 bg-gradient-to-t from-[#08051f]/50 via-transparent to-transparent" />
+                    </div>
+                  ))}
                 </div>
-              ))}
+              </div>
+
+              {/* Prev / Next arrows — only shown when carousel has multiple slides */}
+              {hasCarousel && (
+                <>
+                  <button
+                    onClick={scrollPrev}
+                    className="absolute left-3 top-1/2 -translate-y-1/2 z-10 w-9 h-9 bg-white/80 backdrop-blur-sm rounded-full flex items-center justify-center shadow-md hover:bg-white hover:shadow-lg transition-all duration-200"
+                    aria-label="Imagen anterior"
+                  >
+                    <ChevronLeft className="w-4 h-4" style={{ color: "#15104a" }} />
+                  </button>
+                  <button
+                    onClick={scrollNext}
+                    className="absolute right-3 top-1/2 -translate-y-1/2 z-10 w-9 h-9 bg-white/80 backdrop-blur-sm rounded-full flex items-center justify-center shadow-md hover:bg-white hover:shadow-lg transition-all duration-200"
+                    aria-label="Imagen siguiente"
+                  >
+                    <ChevronRight className="w-4 h-4" style={{ color: "#15104a" }} />
+                  </button>
+                </>
+              )}
+
+              {/* Dot indicators — only shown when carousel has multiple slides */}
+              {hasCarousel && scrollSnaps.length > 1 && (
+                <div className="absolute bottom-4 left-1/2 -translate-x-1/2 z-10 flex gap-1.5">
+                  {scrollSnaps.map((_, i) => (
+                    <button
+                      key={i}
+                      onClick={() => emblaApi?.scrollTo(i)}
+                      aria-label={`Ir a imagen ${i + 1}`}
+                      className={cn(
+                        "h-1.5 rounded-full transition-all duration-200",
+                        i === selectedIndex ? "w-5 bg-white" : "w-1.5 bg-white/50 hover:bg-white/80"
+                      )}
+                    />
+                  ))}
+                </div>
+              )}
+            </>
+          ) : (
+            /* No image placeholder */
+            <div className="absolute inset-0 flex flex-col items-center justify-center gap-3">
+              <div
+                className="w-20 h-20 rounded-2xl flex items-center justify-center"
+                style={{ background: "rgba(215,168,79,0.12)", border: "1px solid rgba(215,168,79,0.25)" }}
+              >
+                <Tag className="w-9 h-9" style={{ color: "rgba(215,168,79,0.55)" }} />
+              </div>
+              <p className="text-sm font-medium" style={{ color: "rgba(8,5,31,0.35)" }}>
+                {title}
+              </p>
             </div>
-          </div>
+          )}
 
           {/* "Promoción Exclusiva" badge */}
           <div
@@ -107,45 +164,11 @@ export function PromoFeaturedCard({ promo, locale, whatsappPhone }: PromoFeature
             <Sparkles className="w-3 h-3" />
             Promoción Exclusiva
           </div>
-
-          {/* Prev / Next arrows */}
-          <button
-            onClick={scrollPrev}
-            className="absolute left-3 top-1/2 -translate-y-1/2 z-10 w-9 h-9 bg-white/80 backdrop-blur-sm rounded-full flex items-center justify-center shadow-md hover:bg-white hover:shadow-lg transition-all duration-200"
-            aria-label="Imagen anterior"
-          >
-            <ChevronLeft className="w-4 h-4" style={{ color: "#15104a" }} />
-          </button>
-          <button
-            onClick={scrollNext}
-            className="absolute right-3 top-1/2 -translate-y-1/2 z-10 w-9 h-9 bg-white/80 backdrop-blur-sm rounded-full flex items-center justify-center shadow-md hover:bg-white hover:shadow-lg transition-all duration-200"
-            aria-label="Imagen siguiente"
-          >
-            <ChevronRight className="w-4 h-4" style={{ color: "#15104a" }} />
-          </button>
-
-          {/* Dot indicators */}
-          {scrollSnaps.length > 1 && (
-            <div className="absolute bottom-4 left-1/2 -translate-x-1/2 z-10 flex gap-1.5">
-              {scrollSnaps.map((_, i) => (
-                <button
-                  key={i}
-                  onClick={() => emblaApi?.scrollTo(i)}
-                  aria-label={`Ir a imagen ${i + 1}`}
-                  className={cn(
-                    "h-1.5 rounded-full transition-all duration-200",
-                    i === selectedIndex ? "w-5 bg-white" : "w-1.5 bg-white/50 hover:bg-white/80"
-                  )}
-                />
-              ))}
-            </div>
-          )}
         </div>
 
         {/* ── RIGHT: Details ─────────────────────────────────────────── */}
         <div className="p-8 md:p-10 flex flex-col justify-between gap-6 bg-white">
           <div className="space-y-4">
-            {/* "Oferta especial" chip */}
             <span
               className="inline-flex items-center gap-1.5 text-xs font-bold px-3 py-1.5 rounded-full border"
               style={{ background: "rgba(243,209,132,0.20)", color: "#15104a", borderColor: "rgba(215,168,79,0.35)" }}
@@ -184,14 +207,10 @@ export function PromoFeaturedCard({ promo, locale, whatsappPhone }: PromoFeature
             </ul>
           </div>
 
-          {/* CTA buttons */}
           <div className="flex flex-col sm:flex-row gap-3">
             {whatsappPhone && (
               <a
-                href={getWhatsAppUrl(
-                  whatsappPhone,
-                  `Hola! Me interesa la promoción: ${title}`
-                )}
+                href={getWhatsAppUrl(whatsappPhone, `Hola! Me interesa la promoción: ${title}`)}
                 target="_blank"
                 rel="noopener noreferrer"
                 className="flex-1 flex items-center justify-center gap-2 py-3 px-5 rounded-2xl bg-gradient-to-r from-[#22c55e] to-[#16a34a] text-white font-semibold text-sm shadow-[0_4px_16px_rgba(34,197,94,0.30)] hover:shadow-[0_6px_24px_rgba(34,197,94,0.40)] hover:-translate-y-0.5 transition-all duration-200"
@@ -215,6 +234,7 @@ export function PromoFeaturedCard({ promo, locale, whatsappPhone }: PromoFeature
             )}
           </div>
         </div>
+
       </div>
     </div>
   );

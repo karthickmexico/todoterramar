@@ -1,5 +1,4 @@
 import Link from "next/link";
-import Image from "next/image";
 import { useTranslations } from "next-intl";
 import {
   ArrowRight,
@@ -138,13 +137,13 @@ export function PromotionsPreview({ promotions, locale }: PromotionsPreviewProps
                 >
                   {/* Image */}
                   <div className="relative h-52 overflow-hidden" style={{ background: "linear-gradient(135deg, #eeedf8, #fdf8ed)" }}>
-                    {promo.imageUrl ? (
-                      <Image
+                    {promo.imageUrl && !promo.imageUrl.startsWith("/uploads/") ? (
+                      // eslint-disable-next-line @next/next/no-img-element
+                      <img
                         src={promo.imageUrl}
                         alt={title}
-                        fill
-                        className="object-cover group-hover:scale-105 transition-transform duration-500"
-                        sizes="(max-width: 768px) 100vw, 33vw"
+                        className="absolute inset-0 w-full h-full object-cover group-hover:scale-105 transition-transform duration-500"
+                        onError={(e) => { e.currentTarget.style.display = "none"; }}
                       />
                     ) : (
                       <div className="h-full flex items-center justify-center">
