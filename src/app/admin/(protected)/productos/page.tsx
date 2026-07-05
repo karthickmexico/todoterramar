@@ -11,6 +11,7 @@ export const metadata: Metadata = {
 export default async function AdminProductsPage() {
   let products: {
     id: string; nameEs: string; price: number | null; imageUrl: string | null;
+    catalogueUrl: string | null; catalogueLabel: string | null;
     availability: string; isFeatured: boolean; isPublished: boolean;
     category: { id: string; nameEs: string } | null;
   }[] = [];
@@ -28,6 +29,8 @@ export default async function AdminProductsPage() {
       nameEs: p.nameEs,
       price: p.price !== null ? Number(p.price) : null,
       imageUrl: p.imageUrl,
+      catalogueUrl: p.catalogueUrl,
+      catalogueLabel: p.catalogueLabel,
       availability: p.availability,
       isFeatured: p.isFeatured,
       isPublished: p.isPublished,
@@ -40,6 +43,7 @@ export default async function AdminProductsPage() {
     <div className="max-w-7xl">
       <div className="mb-6">
         <h1 className="text-2xl font-bold text-gray-900">Productos</h1>
+        <p className="text-sm text-gray-500 mt-1">Gestiona productos y enlaces de catálogo desde un solo lugar.</p>
       </div>
       <ProductsManager products={products} categories={categories} />
     </div>

@@ -5,7 +5,7 @@ import Link from "next/link";
 import Image from "next/image";
 import { useTranslations } from "next-intl";
 import { Button } from "@/components/ui/button";
-import { ArrowRight, MessageCircle, ShoppingBag, Sparkles } from "lucide-react";
+import { ArrowRight, MessageCircle, ShoppingBag, Sparkles, BookOpen } from "lucide-react";
 import { formatCurrency, getWhatsAppUrl } from "@/lib/utils";
 
 interface Product {
@@ -15,6 +15,8 @@ interface Product {
   descriptionEs: string | null;
   price: number | null;
   imageUrl: string | null;
+  catalogueUrl: string | null;
+  catalogueLabel: string | null;
   availability: "IN_STOCK" | "OUT_OF_STOCK" | "COMING_SOON";
   isFeatured: boolean;
   category: { nameEs: string; nameEn: string | null } | null;
@@ -156,6 +158,18 @@ export function ProductsPreview({ products, locale, whatsappPhone: whatsappPhone
                     >
                       <MessageCircle className="w-4 h-4" />
                       {t("inquire")}
+                    </a>
+                  )}
+                  {product.catalogueUrl && (
+                    <a
+                      href={product.catalogueUrl}
+                      target="_blank"
+                      rel="noopener noreferrer"
+                      className="flex items-center justify-center gap-2 w-full py-2.5 rounded-xl text-sm font-semibold transition-all mt-2"
+                      style={{ background: "rgba(215,168,79,0.10)", color: "#15104a", border: "1px solid rgba(215,168,79,0.35)" }}
+                    >
+                      <BookOpen className="w-4 h-4" style={{ color: "#d7a84f" }} />
+                      {product.catalogueLabel || (locale === "en" ? "View catalogue" : "Ver catálogo")}
                     </a>
                   )}
                 </div>

@@ -28,6 +28,8 @@ async function getProductsData() {
       products: products.map((p) => ({
         ...p,
         price: p.price !== null ? Number(p.price) : null,
+        catalogueUrl: p.catalogueUrl ?? null,
+        catalogueLabel: p.catalogueLabel ?? null,
         createdAt: p.createdAt.toISOString(),
         updatedAt: p.updatedAt.toISOString(),
         category: p.category ? {

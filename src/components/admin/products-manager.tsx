@@ -15,7 +15,7 @@ import { Card, CardContent } from "@/components/ui/card";
 import { Dialog, DialogContent, DialogHeader, DialogTitle } from "@/components/ui/dialog";
 import { Badge } from "@/components/ui/badge";
 import { Select, SelectContent, SelectItem, SelectTrigger, SelectValue } from "@/components/ui/select";
-import { Plus, Edit, Trash2, ShoppingBag, Loader2 } from "lucide-react";
+import { Plus, Edit, Trash2, ShoppingBag, Loader2, BookOpen } from "lucide-react";
 import { formatCurrency } from "@/lib/utils";
 import { ImageUpload } from "@/components/admin/image-upload";
 
@@ -25,6 +25,8 @@ interface Product {
   nameEs: string;
   price: number | null;
   imageUrl: string | null;
+  catalogueUrl: string | null;
+  catalogueLabel: string | null;
   availability: string;
   isFeatured: boolean;
   isPublished: boolean;
@@ -38,6 +40,8 @@ const schema = z.object({
   price: z.string().optional(),
   categoryId: z.string().optional().nullable(),
   imageUrl: z.string().optional().nullable(),
+  catalogueUrl: z.string().optional().nullable(),
+  catalogueLabel: z.string().optional().nullable(),
   availability: z.enum(["IN_STOCK", "OUT_OF_STOCK", "COMING_SOON"]),
   isFeatured: z.boolean(),
   isPublished: z.boolean(),
@@ -70,6 +74,8 @@ export function ProductsManager({ products: initial, categories }: { products: P
       nameEs: product.nameEs,
       price: product.price ? String(product.price) : "",
       imageUrl: product.imageUrl || "",
+      catalogueUrl: product.catalogueUrl || "",
+      catalogueLabel: product.catalogueLabel || "",
       availability: product.availability as "IN_STOCK" | "OUT_OF_STOCK" | "COMING_SOON",
       isFeatured: product.isFeatured,
       isPublished: product.isPublished,
@@ -83,10 +89,16 @@ export function ProductsManager({ products: initial, categories }: { products: P
     try {
       const url = editing ? `/api/admin/products/${editing.id}` : "/api/admin/products";
       const method = editing ? "PATCH" : "POST";
+      const payload = {
+        ...data,
+        price: data.price ? parseFloat(data.price) : null,
+        catalogueUrl: data.catalogueUrl?.trim() || null,
+        catalogueLabel: data.catalogueLabel?.trim() || null,
+      };
       const res = await fetch(url, {
         method,
         headers: { "Content-Type": "application/json" },
-        body: JSON.stringify({ ...data, price: data.price ? parseFloat(data.price) : null }),
+        body: JSON.stringify(payload),
       });
       if (res.ok) {
         setIsOpen(false);
@@ -149,7 +161,19 @@ export function ProductsManager({ products: initial, categories }: { products: P
               <span className={`text-xs px-1.5 py-0.5 rounded-full ${availColors[product.availability]}`}>
                 {availLabels[product.availability]}
               </span>
-              <div className="flex gap-1 mt-2">
+              <div className="flex gap-1 mt-2 flex-wrap">
+                {product.catalogueUrl && (
+                  <a
+                    href={product.catalogueUrl}
+                    target="_blank"
+                    rel="noopener noreferrer"
+                    className="inline-flex items-center gap-1 text-xs px-2 py-0.5 rounded-full font-medium"
+                    style={{ background: "rgba(215,168,79,0.12)", color: "#a07828", border: "1px solid rgba(215,168,79,0.30)" }}
+                  >
+                    <BookOpen className="w-2.5 h-2.5" />
+                    Catálogo
+                  </a>
+                )}
                 <Button variant="ghost" size="icon" className="h-6 w-6" onClick={() => openEdit(product)}>
                   <Edit className="w-3 h-3" />
                 </Button>
@@ -220,6 +244,20 @@ export function ProductsManager({ products: initial, categories }: { products: P
                 />
               </div>
             </div>
+            {/* Catálogo */}
+            <div className="rounded-lg p-3 space-y-3" style={{ background: "rgba(215,168,79,0.05)", border: "1px solid rgba(215,168,79,0.18)" }}>
+              <p className="text-xs font-semibold uppercase tracking-wider" style={{ color: "#a07828" }}>Catálogo</p>
+              <div>
+                <Label>URL del catálogo</Label>
+                <p className="text-xs text-gray-400 mt-0.5 mb-1">Puedes pegar aquí el enlace del catálogo, PDF, página externa o recurso relacionado con este producto.</p>
+                <Input {...register("catalogueUrl")} className="mt-1" placeholder="https://..." />
+              </div>
+              <div>
+                <Label>Texto del botón</Label>
+                <Input {...register("catalogueLabel")} className="mt-1" placeholder="Ver catálogo" />
+              </div>
+            </div>
+
             <div className="flex gap-6">
               <div className="flex items-center gap-2">
                 <Switch defaultChecked={editing?.isFeatured} onCheckedChange={(v) => setValue("isFeatured", v)} />

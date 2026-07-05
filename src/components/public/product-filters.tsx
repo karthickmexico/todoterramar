@@ -4,14 +4,15 @@ import React, { useState, useMemo } from "react";
 import Image from "next/image";
 import { useTranslations } from "next-intl";
 import { Input } from "@/components/ui/input";
-import { Search, ShoppingBag, MessageCircle, X } from "lucide-react";
+import { Search, ShoppingBag, MessageCircle, X, BookOpen } from "lucide-react";
 import { formatCurrency, getWhatsAppUrl } from "@/lib/utils";
 
 interface Category { id: string; nameEs: string; nameEn: string | null; }
 interface Product {
   id: string; nameEs: string; nameEn: string | null;
   descriptionEs: string | null; price: number | null;
-  imageUrl: string | null; availability: "IN_STOCK" | "OUT_OF_STOCK" | "COMING_SOON";
+  imageUrl: string | null; catalogueUrl: string | null; catalogueLabel: string | null;
+  availability: "IN_STOCK" | "OUT_OF_STOCK" | "COMING_SOON";
   isFeatured: boolean; categoryId: string | null;
   category: Category | null;
 }
@@ -146,6 +147,18 @@ export function ProductFilters({ locale, categories, products, initialCategory, 
                     <a href={getWhatsAppUrl(whatsappPhone, `Hola! Me interesa: ${name}`)} target="_blank" rel="noopener noreferrer"
                       className="flex items-center justify-center gap-2 w-full py-2.5 rounded-xl bg-[#25D366] text-white text-xs font-semibold hover:bg-[#1fba59] transition-colors shadow-sm">
                       <MessageCircle className="w-3.5 h-3.5" />{t("inquire")}
+                    </a>
+                  )}
+                  {product.catalogueUrl && (
+                    <a
+                      href={product.catalogueUrl}
+                      target="_blank"
+                      rel="noopener noreferrer"
+                      className="flex items-center justify-center gap-2 w-full py-2.5 rounded-xl text-xs font-semibold transition-all mt-2"
+                      style={{ background: "rgba(215,168,79,0.10)", color: "#15104a", border: "1px solid rgba(215,168,79,0.35)" }}
+                    >
+                      <BookOpen className="w-3.5 h-3.5" style={{ color: "#d7a84f" }} />
+                      {product.catalogueLabel || (locale === "en" ? "View catalogue" : "Ver catálogo")}
                     </a>
                   )}
                 </div>

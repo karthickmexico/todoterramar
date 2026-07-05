@@ -190,6 +190,8 @@ model Product {
   price           Decimal?        @db.Decimal(10, 2)
   categoryId      String?
   imageUrl        String?
+  catalogueUrl    String?
+  catalogueLabel  String?
   availability    Availability    @default(IN_STOCK)
   isFeatured      Boolean         @default(false)
   isPublished     Boolean         @default(true)

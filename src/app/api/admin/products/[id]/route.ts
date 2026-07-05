@@ -9,6 +9,8 @@ const patchSchema = z.object({
   price: z.number().optional().nullable(),
   categoryId: z.string().optional().nullable(),
   imageUrl: z.string().optional().nullable(),
+  catalogueUrl: z.string().url().optional().nullable(),
+  catalogueLabel: z.string().optional().nullable(),
   availability: z.enum(["IN_STOCK", "OUT_OF_STOCK", "COMING_SOON"]).optional(),
   isFeatured: z.boolean().optional(),
   isPublished: z.boolean().optional(),
