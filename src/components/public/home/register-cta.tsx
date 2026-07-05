@@ -6,13 +6,14 @@ import { getWhatsAppUrl } from "@/lib/utils";
 
 interface RegisterCtaProps {
   locale: string;
+  whatsappPhone?: string;
 }
 
 const WHATSAPP_REGISTER_MSG = "Hola, quiero registrarme en Terramar. ¿Me puedes ayudar?";
 
-export function RegisterCta({ locale }: RegisterCtaProps) {
+export function RegisterCta({ locale, whatsappPhone: whatsappPhoneProp }: RegisterCtaProps) {
   const t = useTranslations();
-  const whatsappPhone = process.env.NEXT_PUBLIC_WHATSAPP_NUMBER || "";
+  const whatsappPhone = whatsappPhoneProp ?? process.env.NEXT_PUBLIC_WHATSAPP_NUMBER ?? "";
 
   return (
     <section className="relative overflow-hidden py-20 sm:py-28 bg-white">

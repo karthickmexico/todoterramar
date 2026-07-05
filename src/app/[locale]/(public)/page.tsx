@@ -11,6 +11,7 @@ import { ProductsPreview } from "@/components/public/home/products-preview";
 import { FaqSection } from "@/components/public/home/faq-section";
 import { RegisterCta } from "@/components/public/home/register-cta";
 import { prisma } from "@/lib/prisma";
+import { getSiteSettings } from "@/lib/site-settings";
 
 export async function generateMetadata({
   params,
@@ -116,18 +117,22 @@ export default async function HomePage({
   params: Promise<{ locale: string }>;
 }) {
   const { locale } = await params;
-  const { promotions, videos, products, sliderImages, dbCategories } = await getHomeData();
+  const [{ promotions, videos, products, sliderImages, dbCategories }, settings] = await Promise.all([
+    getHomeData(),
+    getSiteSettings(),
+  ]);
+  const whatsappPhone = settings.whatsappNumber;
 
   return (
     <>
       {/* 1. Hero banner carousel */}
-      <HeroSection locale={locale} sliderImages={sliderImages} />
+      <HeroSection locale={locale} sliderImages={sliderImages} whatsappPhone={whatsappPhone} />
 
       {/* 2. How to affiliate — Cómo afiliarse / Únete al equipo */}
-      <AffiliateSection locale={locale} />
+      <AffiliateSection locale={locale} whatsappPhone={whatsappPhone} />
 
       {/* 3. Monthly promotions */}
-      <PromotionsPreview promotions={promotions} locale={locale} />
+      <PromotionsPreview promotions={promotions} locale={locale} whatsappPhone={whatsappPhone} />
 
       {/* 4. Product categories grid */}
       <CategoriesSection locale={locale} dbCategories={dbCategories} />
@@ -136,7 +141,7 @@ export default async function HomePage({
       <AboutSection locale={locale} />
 
       {/* 6. Featured products */}
-      <ProductsPreview products={products} locale={locale} />
+      <ProductsPreview products={products} locale={locale} whatsappPhone={whatsappPhone} />
 
       {/* 7. Videos */}
       <VideosPreview videos={videos} locale={locale} />
@@ -148,7 +153,7 @@ export default async function HomePage({
       <FaqSection locale={locale} />
 
       {/* 10. Registration CTA with WhatsApp */}
-      <RegisterCta locale={locale} />
+      <RegisterCta locale={locale} whatsappPhone={whatsappPhone} />
     </>
   );
 }

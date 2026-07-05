@@ -28,6 +28,7 @@ interface SliderImage {
 interface HeroSectionProps {
   locale: string;
   sliderImages?: SliderImage[];
+  whatsappPhone?: string;
 }
 
 // Single branded fallback — shown only when no banners exist in the DB.
@@ -46,9 +47,9 @@ const FALLBACK_SLIDES: SliderImage[] = [
   },
 ];
 
-export function HeroSection({ locale, sliderImages }: HeroSectionProps) {
+export function HeroSection({ locale, sliderImages, whatsappPhone: whatsappPhoneProp }: HeroSectionProps) {
   const t = useTranslations();
-  const whatsappPhone = process.env.NEXT_PUBLIC_WHATSAPP_NUMBER || "";
+  const whatsappPhone = whatsappPhoneProp ?? process.env.NEXT_PUBLIC_WHATSAPP_NUMBER ?? "";
   const slides = sliderImages && sliderImages.length > 0 ? sliderImages : FALLBACK_SLIDES;
 
   const [emblaRef, emblaApi] = useEmblaCarousel({ loop: true, duration: 28 });

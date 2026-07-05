@@ -46,6 +46,8 @@ export const DEFAULT_SETTINGS = {
   // Contact
   whatsappNumber: "",
   whatsappDefaultMessage: "¡Hola! Vengo de TodoTerramar y me gustaría obtener más información.",
+  phoneNumber: "",
+  contactEmail: "",
   location: "México",
   businessHours: "Lunes a Viernes 9:00 - 18:00",
   // Social

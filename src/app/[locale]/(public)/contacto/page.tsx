@@ -5,7 +5,7 @@ import { prisma } from "@/lib/prisma";
 import { useTranslations } from "next-intl";
 import { getWhatsAppUrl } from "@/lib/utils";
 import { Button } from "@/components/ui/button";
-import { MessageCircle, Clock, MapPin, Mail } from "lucide-react";
+import { MessageCircle, Clock, MapPin, Mail, Phone } from "lucide-react";
 
 export async function generateMetadata({
   params,
@@ -65,6 +65,34 @@ function ContactContent({
               )}
 
               <div className="space-y-3 text-sm">
+                {settings.phoneNumber && (
+                  <div className="flex items-start gap-3">
+                    <Phone className="w-4 h-4 mt-0.5" style={{ color: "#d7a84f" }} />
+                    <div>
+                      <div className="font-medium text-gray-800">Teléfono</div>
+                      <a
+                        href={`tel:${settings.phoneNumber.replace(/\s/g, "")}`}
+                        className="text-gray-600 hover:text-gray-900 transition-colors"
+                      >
+                        {settings.phoneNumber}
+                      </a>
+                    </div>
+                  </div>
+                )}
+                {settings.contactEmail && (
+                  <div className="flex items-start gap-3">
+                    <Mail className="w-4 h-4 mt-0.5" style={{ color: "#d7a84f" }} />
+                    <div>
+                      <div className="font-medium text-gray-800">Correo electrónico</div>
+                      <a
+                        href={`mailto:${settings.contactEmail}`}
+                        className="text-gray-600 hover:text-gray-900 transition-colors"
+                      >
+                        {settings.contactEmail}
+                      </a>
+                    </div>
+                  </div>
+                )}
                 <div className="flex items-start gap-3">
                   <Clock className="w-4 h-4 mt-0.5" style={{ color: "#d7a84f" }} />
                   <div>

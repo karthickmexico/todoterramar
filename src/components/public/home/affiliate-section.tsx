@@ -6,6 +6,7 @@ import { getWhatsAppUrl } from "@/lib/utils";
 
 interface AffiliateSectionProps {
   locale: string;
+  whatsappPhone?: string;
 }
 
 const WHATSAPP_REGISTER_MSG = "Hola, quiero registrarme en Terramar. ¿Me puedes ayudar?";
@@ -33,9 +34,9 @@ const steps = [
   },
 ];
 
-export function AffiliateSection({ locale }: AffiliateSectionProps) {
+export function AffiliateSection({ locale, whatsappPhone: whatsappPhoneProp }: AffiliateSectionProps) {
   const t = useTranslations();
-  const whatsappPhone = process.env.NEXT_PUBLIC_WHATSAPP_NUMBER || "";
+  const whatsappPhone = whatsappPhoneProp ?? process.env.NEXT_PUBLIC_WHATSAPP_NUMBER ?? "";
 
   return (
     <section className="relative overflow-hidden py-20 sm:py-28 bg-white">

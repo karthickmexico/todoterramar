@@ -23,11 +23,12 @@ interface Product {
 interface ProductsPreviewProps {
   products: Product[];
   locale: string;
+  whatsappPhone?: string;
 }
 
-export function ProductsPreview({ products, locale }: ProductsPreviewProps) {
+export function ProductsPreview({ products, locale, whatsappPhone: whatsappPhoneProp }: ProductsPreviewProps) {
   const t = useTranslations("products");
-  const whatsappPhone = process.env.NEXT_PUBLIC_WHATSAPP_NUMBER || "";
+  const whatsappPhone = whatsappPhoneProp ?? process.env.NEXT_PUBLIC_WHATSAPP_NUMBER ?? "";
 
   if (products.length === 0) return null;
 

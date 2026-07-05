@@ -1,6 +1,7 @@
 import { Metadata } from "next";
 import { getTranslations } from "next-intl/server";
 import { prisma } from "@/lib/prisma";
+import { getSiteSettings } from "@/lib/site-settings";
 import { Sparkles } from "lucide-react";
 import { PromoCard } from "@/components/public/promo-card";
 import { PromoBeautyStrip, type SliderImageItem } from "@/components/public/promo-beauty-strip";
@@ -58,12 +59,13 @@ export default async function PromotionsPage({
 }) {
   const { locale } = await params;
   const t = await getTranslations({ locale, namespace: "promotions" });
-  const whatsappPhone = process.env.NEXT_PUBLIC_WHATSAPP_NUMBER || "";
 
-  const [rawPromotions, sliderImages] = await Promise.all([
+  const [rawPromotions, sliderImages, settings] = await Promise.all([
     getPromotions(),
     getSliderImages(),
+    getSiteSettings(),
   ]);
+  const whatsappPhone = settings.whatsappNumber || process.env.NEXT_PUBLIC_WHATSAPP_NUMBER || "";
 
   const promotions = rawPromotions.map((p) => ({
     ...p,

@@ -1,7 +1,7 @@
 import React from "react";
 import Link from "next/link";
 import { useTranslations } from "next-intl";
-import { MessageCircle, MapPin, Clock, Share2, Play } from "lucide-react";
+import { MessageCircle, MapPin, Clock, Share2, Play, Phone, Mail } from "lucide-react";
 
 interface FooterProps {
   locale: string;
@@ -73,6 +73,30 @@ export function Footer({ locale, settings }: FooterProps) {
                 <Clock className="w-4 h-4 mt-0.5 flex-shrink-0" style={{ color: "#d7a84f" }} />
                 <span>{settings?.businessHours || "Lun-Vie 9:00 – 18:00"}</span>
               </div>
+              {settings?.phoneNumber && (
+                <div className="flex items-start gap-2 text-sm">
+                  <Phone className="w-4 h-4 mt-0.5 flex-shrink-0" style={{ color: "#d7a84f" }} />
+                  <a
+                    href={`tel:${settings.phoneNumber.replace(/\s/g, "")}`}
+                    className="transition-colors hover:text-white/70"
+                    style={{ color: "rgba(255,255,255,0.45)" }}
+                  >
+                    {settings.phoneNumber}
+                  </a>
+                </div>
+              )}
+              {settings?.contactEmail && (
+                <div className="flex items-start gap-2 text-sm">
+                  <Mail className="w-4 h-4 mt-0.5 flex-shrink-0" style={{ color: "#d7a84f" }} />
+                  <a
+                    href={`mailto:${settings.contactEmail}`}
+                    className="transition-colors hover:text-white/70"
+                    style={{ color: "rgba(255,255,255,0.45)" }}
+                  >
+                    {settings.contactEmail}
+                  </a>
+                </div>
+              )}
             </div>
           </div>
 

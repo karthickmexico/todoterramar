@@ -81,7 +81,7 @@ interface SettingsFormProps {
 
 const SAVE_KEYS = new Set([
   // Contact
-  "whatsappNumber", "whatsappDefaultMessage", "location", "businessHours",
+  "whatsappNumber", "whatsappDefaultMessage", "phoneNumber", "contactEmail", "location", "businessHours",
   // Social
   "facebook", "instagram", "youtube", "tiktok",
   // SEO
@@ -144,6 +144,21 @@ export function SettingsForm({ settings }: SettingsFormProps) {
                 value={v("whatsappNumber")}
                 onChange={(val) => update("whatsappNumber", val)}
                 placeholder="521XXXXXXXXXX"
+                hint='Incluye código de país. Ejemplo: 521XXXXXXXXXX (México). Se usa para todos los botones de WhatsApp del sitio.'
+              />
+              <Field
+                label="Teléfono de contacto (opcional)"
+                value={v("phoneNumber")}
+                onChange={(val) => update("phoneNumber", val)}
+                placeholder="+52 55 1234 5678"
+                hint='Número de teléfono que se muestra en la página de contacto y en el pie de página. Puede ser diferente al WhatsApp.'
+              />
+              <Field
+                label="Correo electrónico de contacto (opcional)"
+                value={v("contactEmail")}
+                onChange={(val) => update("contactEmail", val)}
+                placeholder="contacto@todoterramar.com"
+                hint='Se muestra en la página de contacto y en el pie de página.'
               />
               <Field
                 label="Mensaje predeterminado de WhatsApp"

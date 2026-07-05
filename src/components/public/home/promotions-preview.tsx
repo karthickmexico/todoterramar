@@ -27,11 +27,12 @@ interface Promotion {
 interface PromotionsPreviewProps {
   promotions: Promotion[];
   locale: string;
+  whatsappPhone?: string;
 }
 
-export function PromotionsPreview({ promotions, locale }: PromotionsPreviewProps) {
+export function PromotionsPreview({ promotions, locale, whatsappPhone: whatsappPhoneProp }: PromotionsPreviewProps) {
   const t = useTranslations("promotions");
-  const whatsappPhone = process.env.NEXT_PUBLIC_WHATSAPP_NUMBER || "";
+  const whatsappPhone = whatsappPhoneProp ?? process.env.NEXT_PUBLIC_WHATSAPP_NUMBER ?? "";
 
   const featured = promotions[0] ?? null;
   const rest = promotions.slice(1);
