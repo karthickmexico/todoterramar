@@ -43,12 +43,29 @@ export const LEAD_STATUS_COLORS = {
 } as const;
 
 export const DEFAULT_SETTINGS = {
+  // Contact
   whatsappNumber: "",
   whatsappDefaultMessage: "¡Hola! Vengo de TodoTerramar y me gustaría obtener más información.",
   location: "México",
   businessHours: "Lunes a Viernes 9:00 - 18:00",
+  // Social
   facebook: "",
   instagram: "",
   youtube: "",
   tiktok: "",
+  // SEO básico
+  siteTitle: "",
+  siteDescription: "",
+  seoKeywords: "",
+  defaultOgImageUrl: "",
+  googleSearchConsoleCode: "",
+  // Tracking IDs
+  googleAnalyticsId: "",
+  googleTagManagerId: "",
+  metaPixelId: "",
+  tiktokPixelId: "",
+  // Custom code injection
+  customHeadCode: "",
+  customBodyStartCode: "",
+  customBodyEndCode: "",
 };
